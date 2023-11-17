@@ -1,8 +1,8 @@
 # Desarrollo Web en entorno cliente 2024
-- CRUD clientes: Script para manejar una lista de clientes en RAM
+- CRUD clientes: Script para manejar una lista de clientes en RAM.
   - crudClientesv1.js (Práctica con prompt)
   - crudClientesv2.js (Práctica usando el modelo DOM)
-- Juego Ocultar Palabras:
+- Juego Ocultar Palabras: Scrip de un juego para ocultar X palabras dentro de una cadena de texto.
   - ocultarPalabras.js (Práctica con prompt)
   - ocultarPalabrasDOM.js (Práctica usando el modelo DOM)
 
