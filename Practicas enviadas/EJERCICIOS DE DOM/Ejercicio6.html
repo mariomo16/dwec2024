@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <p>Párrafo 1</p>
+    <p>Párrafo 2</p>
+    <p>Párrafo 3</p>
+    <p>Párrafo 4</p>
+    <p>Párrafo 5</p>
+  </div>
+  <input type="button" value="Cambiar a negrita primer y ultimo párrafo" onclick="cambiarNegrita()">
+  <script>
+    function cambiarNegrita() {
+      let p = document.getElementsByTagName("p");
+      p[0].style.fontWeight="bold";
+      p[p.length-1].style.fontWeight="bold";
+    }
+  </script>
+</body>
+</html>

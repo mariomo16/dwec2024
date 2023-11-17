@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+  </ul>
+  <br>
+  <input type="button" value="Crear <li/>" onclick="crearLi()">
+  <script>
+    function crearLi() {
+      document.getElementsByTagName("ul")[0].innerHTML=`
+      <li>Elemento1</li>
+      <li>Elemento2</li>
+      <li>Elemento3</li>
+      `
+    }
+  </script>
+</body>
+</html>

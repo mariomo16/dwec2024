@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="bloqueDiv">
+    <p>Párrafo 1</p>
+    <p>Párrafo 2</p>
+    <p>Párrafo 3</p>
+  </div>
+  <input type="button" value="Cambiar Color" onclick="cambiarColor()">
+  <script>
+    // No sabia si querías cambiar el color de TODOS los párrafos, o de cada párrafo por separado
+    function cambiarColor() {
+      let parrafos = document.getElementById("bloqueDiv").children;
+      for (let i = 0; i < parrafos.length; i++) {
+          parrafos[i].style.color="red";
+      }
+    }
+  </script>
+</body>
+</html>

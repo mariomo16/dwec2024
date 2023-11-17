@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <p>Párrafo 1</p>
+    <p>Párrafo 2</p>
+    <p>Párrafo 3</p>
+    <p>Párrafo 4</p>
+    <p>Párrafo 5</p>
+  </div>
+  <div>
+    <p>Párrafo 1 (segundo div)</p>
+    <p>Párrafo 2 (segundo div)</p>
+    <p>Párrafo 3 (segundo div)</p>
+    <p>Párrafo 4 (segundo div)</p>
+    <p>Párrafo 5 (segundo div)</p>
+  </div>
+  <input type="button" value="Ocultar parrafos del segundo bloque" onclick="ocultarParrafos()">
+  <script>
+    function ocultarParrafos() {
+      document.getElementsByTagName("div")[1].setAttribute("hidden", "true");
+    }
+  </script>
+</body>
+</html>

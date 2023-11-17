@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 id="contador">1</h1>
+  <input type="button" value="Contador +1" onclick="sumarContador()">
+  <script>
+    let contador = document.getElementById("contador");
+    function sumarContador() {
+      contador.textContent = parseInt(contador.textContent) + 1;
+    }
+  </script>
+</body>
+</html>

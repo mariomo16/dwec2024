@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabla dinámica</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div>
+    <table id="tabla1">
+      <caption>
+        Modificar campos de tabla dinámica
+      </caption>
+      <br />
+      <tr>
+        <th>Alimento</th>
+        <th>Calorías (kCal)</th>
+        <th>Grasas (g)</th>
+        <th>Proteína (g)</th>
+        <th>Carbohidratos (g)</th>
+        <th>Acciones</th>
+      </tr>
+
+      <tr>
+        <td>Arándano</td>
+        <td>49</td>
+        <td>0.2</td>
+        <td>0.4</td>
+        <td>12.7</td>
+        <td>
+          <input type="button" class="botonEditar" value="Editar" onclick="editarFila(this)">
+        </td>
+      </tr>
+
+      <tr>
+        <td>Plátano</td>
+        <td>90</td>
+        <td>0.3</td>
+        <td>1.0</td>
+        <td>23.5</td>
+        <td>
+          <input type="button" class="botonEditar" value="Editar" onclick="editarFila(this)">
+        </td>
+      </tr>
+
+      <tr>
+        <td>Cereza</td>
+        <td>46</td>
+        <td>0.4</td>
+        <td>0.9</td>
+        <td>10.9</td>
+        <td>
+          <input type="button" class="botonEditar" value="Editar" onclick="editarFila(this)">
+        </td>
+      </tr>
+
+      <tr>
+        <td>Fresa</td>
+        <td>37</td>
+        <td>0.5</td>
+        <td>0.8</td>
+        <td>8.3</td>
+        <td>
+          <input type="button" class="botonEditar" value="Editar" onclick="editarFila(this)">
+        </td>
+      </tr>
+    </table>
+    <br />
+    <input type="button" id="botonGuardarCambios" value="Guardar cambios" onclick="guardarCambios()" hidden/>
+    <input type="button" id="botonDescartarCambios" value="Descartar cambios" onclick="descartarCambios()" hidden/>
+  </div>
+  <script src="tablaDinamicaV1.1.js"></script>
+</body>
+</html>

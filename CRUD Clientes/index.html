@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Clientes (DOM)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="crearClientes">
+      <fieldset>
+        <legend id="legendCrear" class="legendDatos">
+          Formulario para crear un nuevo cliente
+        </legend>
+        <label for="nombre">Nombre completo</label><br />
+        <input type="text" id="nombreCompleto" /><br />
+        <label for="edad">Edad: </label>
+        <input type="number" id="edad" size="1" maxlength="3" /><br />
+        <label for="fechaNacimiento">Fecha de nacimiento</label><br />
+        <input
+          type="date"
+          id="fechaNacimiento"
+        />
+        <br /><br />
+        <input type="button" value="Crear cliente" onclick="CrearCliente()" />
+      </fieldset>
+    </form>
+    <br />
+    <form id="manejarClientes">
+      <fieldset>
+        <legend>Manejar lista de clientes</legend>
+        <input type="text" id="nombre" placeholder="Nombre/ID cliente" />
+        <input
+          type="button"
+          value="Listar clientes"
+          onclick="listarClientes()"
+        />
+        <input type="button" value="Buscar cliente" onclick="buscarCliente()" />
+        <input
+          type="button"
+          value="Ordenar clientes"
+          onclick="ordenarClientes()"
+        />
+        <input
+          type="button"
+          value="Modificar cliente"
+          onclick="modificarCliente()"
+        />
+        <input type="button" value="Borrar cliente" onclick="borrarCliente()" />
+        <input
+          type="button"
+          value="Limpiar pantalla"
+          onclick="limpiarPantalla()"
+        />
+        <div id="datos"></div>
+      </fieldset>
+    </form>
+    <script src="crudClientesV2.js"></script>
+  </body>
+</html>

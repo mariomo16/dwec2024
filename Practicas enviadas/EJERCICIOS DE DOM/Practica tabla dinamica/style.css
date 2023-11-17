@@ -1,0 +1,36 @@
+/* BASE */
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+html {
+  height: 100%;
+}
+body {
+  background-color: #191b1d;
+  color: white;
+}
+
+/* Div */
+div {
+  width: fit-content;
+  margin: auto;
+}
+
+/* TABLAS */
+table {
+  margin: auto;
+  border-collapse: collapse;
+  border: solid 1px white;
+  text-align: center;
+}
+caption {
+  margin-bottom: 50px;
+  font-size: xx-large;
+}
+th,
+td {
+  padding: 5px;
+}
+td {
+  border: solid 1px white;
+}

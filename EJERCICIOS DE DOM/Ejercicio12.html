@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <p>Párrafo 1</p>
+    <p>Párrafo 2</p>
+    <p>Párrafo 3</p>
+  </div>
+  <input type="button" value="Colocar parrafo" onclick="colocarParrafo()">
+  <script>
+    function colocarParrafo() {
+      let p = document.getElementsByTagName("p");
+      let newP = document.createElement("p");
+      newP.textContent="¡Soy un párrafo nuevo!";
+      document.getElementsByTagName("div")[0].insertBefore(newP, p[0]);
+    }
+  </script>
+</body>
+</html>

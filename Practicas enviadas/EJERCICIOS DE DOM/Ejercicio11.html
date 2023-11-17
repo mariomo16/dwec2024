@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<p>TEXTO DEFAULT</p>
+<br>
+<input type="button" value="Añadir nodo de texto" onclick="nodoTexto(this)">
+<input type="button" value="Borrar nodo de texto" onclick="nodoTexto(this)">
+<body>
+  <script>
+    function nodoTexto(boton) {
+      let p = document.getElementsByTagName("p")[0];
+      let nodoTexto = document.createTextNode(". Hola, soy un texto");
+      if (boton.value=="Añadir nodo de texto") {
+        p.appendChild(nodoTexto);
+      }
+      if (boton.value=="Borrar nodo de texto") {
+        // Dudo que esta sea la manera correcta, pero no encuentro nada mas
+        p.textContent=""
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="parrafoModificar">Hola, esto es un párrafo al que se le puede cambiar el tipo de letra.</p>
+  <input type="button" value="Fuente pequeña: 10px" onclick="fuentePequeña()">
+  <input type="button" value="Fuente mediana: 15px" onclick="fuenteMediana()">
+  <input type="button" value="Fuente grande: 20px" onclick="fuenteGrande()">
+  <br><br>
+  <input type="button" value="Negrita" onclick="fuenteNegrita()">
+  <input type="button" value="Cursiva" onclick="fuenteCursiva()">
+  <script>
+    let p = document.getElementById("parrafoModificar");
+    function fuentePequeña() {
+      p.style.fontSize=10+"px";
+    }
+    function fuenteMediana() {
+      p.style.fontSize=15+"px";
+    }
+    function fuenteGrande() {
+      p.style.fontSize=20+"px";
+    }
+  
+    function fuenteNegrita() {
+      p.style.fontWeight="bold";
+    }
+    function fuenteCursiva() {
+      p.style.fontStyle="italic";
+    }
+  </script>
+</body>
+</html>

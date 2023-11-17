@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="p1">Párrafo 1</p>
+  <p>Párrafo 2</p>
+  <p>Párrafo 3</p>
+  <input type="button" value="Mostrar contenido parrafos" onclick="mostrarContenidoParrafos()">
+  <script>
+    function mostrarContenidoParrafos() {
+      let p1 = document.getElementById("p1");
+      let p2 = p1.nextElementSibling;
+      alert(`Contenido del primer parrafo: ${p1.textContent}\n`+
+      `Contenido del segundo parrafo: ${p2.textContent}\n`+
+      `Contenido del tercer parrafo: ${p2.nextElementSibling.textContent}`
+      );
+    }
+  </script>
+</body>
+</html>

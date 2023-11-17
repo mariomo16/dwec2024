@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="p1">Párrafo 1</p>
+  <p>Párrafo 2</p>
+  <p>Párrafo 3</p>
+  <p>Párrafo 4</p>
+  <input type="button" value="Cambiar tamaño de letra: 35px" onclick="cambiarTamañoLetra()">
+  <script>
+    function cambiarTamañoLetra() {
+      let p1 = document.getElementById("p1");
+      p1.style.fontSize=35+"px";
+      let p2 = p1.nextElementSibling;
+      p2.style.fontSize=35+"px";
+      let p3 = p2.nextElementSibling;
+      p3.style.fontSize=35+"px";
+      p3.nextElementSibling.style.fontSize=35+"px";
+    }
+  </script>
+</body>
+</html>
