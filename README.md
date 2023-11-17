@@ -1,8 +1,8 @@
 # Desarrollo Web en entorno cliente 2024
-## Prácticas enviadas
-Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
-
 ## Prácticas
+- **Prácticas enviadas**
+  - Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
+
 Dentro de cada archivo esta la descripción y mas información.
   - `cifradoCesar.js` (Práctica 4.1)
   - `palindromos.js` (Práctica 5.7)
