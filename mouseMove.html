@@ -9,6 +9,12 @@
   <div id="divHola" style="background-color: yellow; max-width: fit-content; max-height: fit-content; padding: 10px;">
     <p>Hola</p>
   </div>
-  <script src="mousemove.js"></script>
+  <script>
+    let divMover = document.getElementById("divHola");
+    function moverDiv() {
+      divMover.style.top = MouseEvent.clientY+"px";
+      divMover.style.left = MouseEvent.clientX+"px"
+    }
+  </script>
 </body>
 </html>

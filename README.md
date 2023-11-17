@@ -3,6 +3,7 @@
 Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
 
 ## Prácticas
+Dentro de cada archivo esta la descripción y mas información.
   - `cifradoCesar.js` (Práctica 4.1)
   - `palindromos.js` (Práctica 5.7)
 - **CRUD de clientes**
@@ -15,6 +16,4 @@ Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
   - `tablaDinamicaV1.js`
   - `tablaDinamicaV1.1.js`
 - **Ejercicios del modelo DOM** (U.T. 7.)
-
-## Prácticas enviadas
-Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
+- `mouseMove.html` (Práctica 8.1)
