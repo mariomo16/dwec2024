@@ -1,10 +1,12 @@
 # Desarrollo Web en entorno cliente 2024
-- CRUD clientes: Script para manejar una lista de clientes en RAM.
-  - crudClientesv1.js (Práctica con prompt)
-  - crudClientesv2.js (Práctica usando el modelo DOM)
-- Juego Ocultar Palabras: Scrip de un juego para ocultar X palabras dentro de una cadena de texto.
-  - ocultarPalabras.js (Práctica con prompt)
-  - ocultarPalabrasDOM.js (Práctica usando el modelo DOM)
+- `cifradoCesar.js`: Script para cifrar/descifrar usando el Cifrado César.
+- `palindromos.js`: Script para comprobar si una cadena es palindroma.
+- **CRUD de clientes**: Script para manejar una lista de clientes en RAM.
+  - `crudClientesV1.js` (Práctica con prompt)
+  - `crudClientesV2.js` (Práctica usando el modelo DOM)
+- **Juego Ocultar Palabras**: Scrip de un juego para ocultar X palabras dentro de una cadena de texto.
+  - `ocultarPalabrasV1.js` (Práctica con prompt)
+  - `ocultarPalabrasV2.js` (Práctica usando el modelo DOM)
 
 ## Prácticas enviadas
-Aqui guardare las prácticas que he enviado, para saber que mande exactamente.
+Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
