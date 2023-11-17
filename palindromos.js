@@ -1,13 +1,6 @@
-/*
+// Script para comprobar si una cadena es palindroma.
 
-    Mario Morales Ortega (1745008)
-    2DAW - DWEC - Palíndromos (Prácticas propuestas de los temas vistos hasta ahora)
-
-    Aplicación web para comprobar si una cadena es un palíndromo.
-
-*/
-
-//* Comprobar si una cadena es palíndromo usando Strings
+// Comprobar si una cadena es palíndromo usando Strings
 /*
 let cadena;
 let cadenaLC;
@@ -23,7 +16,7 @@ if (cadenaLC == fraseRevert) {
 }
 */
 
-//* Comprobar si es palíndromo usando Arrays 
+// Comprobar si es palíndromo usando Arrays 
 //! Da false si tiene 'puntos', 'comas' u otros símbolos
 let cadena;
 // Pedir cadena de texto por prompt

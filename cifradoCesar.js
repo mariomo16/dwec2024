@@ -1,3 +1,4 @@
+// Script para cifrar/descifrar usando el Cifrado César.
 let texto = prompt("Escriba el texto que desea cifrar o descifrar");
 let clave = prompt("Escribe el código");
 let opcion = confirm("Pulsa Aceptar para cifrar y Cancelar para descifrar");
