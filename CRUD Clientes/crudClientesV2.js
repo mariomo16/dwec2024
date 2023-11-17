@@ -1,4 +1,5 @@
 /*
+
   Nombre del archivo: crudClientesV2.js
   Autor: Mario Morales Ortega (1745008)
   Fecha de creación: 06 de noviembre de 2023
@@ -7,11 +8,13 @@
   Esta aplicación web maneja una lista de clientes (CRUD: crear, leer, actualizar, y borrar) con el modelo DOM (Document Object Model) en RAM
 
   Modificaciones:
-  - 06/11/2023: Creación de la aplicación
-  - 07/11/2023: Optimizaciones de código y creado funciones para "limpiar" los datos en pantalla
+  - 06/11/2023: Creación del script
+  - 07/11/2023: Optimizaciones de código y creación de funciones para "limpiar" los datos en pantalla
   - 12/11/2023: Optimizaciones de código y cambiado la forma en la que se formatea la fecha
 
-  Avisos:
+  !Avisos:
+  - Al crear un 'cliente' LITERAL con la fecha en formato dd/MM/yyyy, se lee como mm/DD/yyyy, y puede causar errores
+    Ej: "26/09/1995" mostrara "Invalid date"
 
   TODOs:
   - Un botón para comprobar datos introducidos
@@ -19,18 +22,16 @@
   Fuente:
   - Para mostrar la fecha de nacimiento he usado el método .toLocaleDateString() con formato es-ES y pasándole un objeto como opción
     https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=846:formato-fechas-javascript-tostring-tolocaledatestring-tolocaletimestrig-totimestring-ejemplo-cu01163e&catid=78&Itemid=206
+
 */
 
 // Array para almacenar los clientes
 let clientes = [];
 
 /*
-  Creo un objeto para poder mostrar la fecha en el formato que yo quiera, sin que se muestre la hora.
-  Si solamente pongo .toLocaleDateString("es-ES"), muestra la fecha ej: "03/10/2002 0:00:00",
-  si pongo solamente .toLocaleDateString(fecha), muestra exactamente lo mismo.
-! Por algún motivo, al crear un cliente LITERAL con la fecha en formato dd/MM/yyyy, se muestra mm/DD/yyyy, 
-! lo que da error al poner una fecha ej: "26/09/1995", y muestra "Invalid date" en su lugar
-  mm/DD/yyyy & yyyy/MM/dd (o con el símbolo -) se muestran sin ningún problema como: dd/MM/yyyy
+  Creo un objeto para poder mostrar la fecha en el formato que yo quiera.
+  Si solamente uso .toLocaleDateString("es-ES"), mostrara: "03/10/2002 0:00:00",
+  si solamente uso .toLocaleDateString(fecha), muestra exactamente lo mismo.
 */
 let fecha = {
   day: "numeric",
