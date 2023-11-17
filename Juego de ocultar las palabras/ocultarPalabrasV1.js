@@ -1,17 +1,20 @@
 /*
 
-    Mario Morales Ortega (1745008)
-    2DAW - DWEC - Juego de ocultar palabras (Prácticas propuestas de los temas vistos hasta ahora)
+  Nombre del archivo: ocultarPalabrasV1.js
+  Autor: Mario Morales Ortega (1745008)
+  Fecha de creación: 03 de noviembre de 2023
 
-    Aplicación web (juego) para intentar adivinar palabras ocultas,
-    (el usuario indica cuantas palabras se ocultaran) de una cadena de texto introducida por prompt
+  Descripción:
+  Script para intentar adivinar palabras ocultas de una cadena de texto introducida por .prompt(),
+  el usuario indica (también por .prompt()) el numero de palabras que quiere ocultar.
 
-    versión 03/11/2023
-        ~ Terminado
+  Modificaciones:
+  - 03/11/2023: Creación del script
 
-    * Es raro, pero a veces, en vez de ocultar una palabra entera, solamente oculta algunas letras por algún motivo que no descubro
-    * Al comprobar los aciertos, distingue entre mayúsculas y minúsculas
-
+  Observaciones:
+  - A veces, en vez de ocultar una palabra entera, solamente oculta algunas letras
+  - Al comprobar los aciertos, distingue entre mayúsculas y minúsculas
+  
 */
 
 function juego() {

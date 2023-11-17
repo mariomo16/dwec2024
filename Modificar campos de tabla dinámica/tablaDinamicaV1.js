@@ -1,14 +1,18 @@
 /*
+
   Nombre del archivo: tablaDinamicaV1.js
   Autor: Mario Morales Ortega (1745008)
   Fecha de creación: 14 de noviembre de 2023
 
   Descripción:
-  Script para hacer los campos de una tabla HTML editable con 'contenteditable'.
-  Solamente se puede editar 1 fila a la vez.
+  Script para hacer los campos de una tabla HTML editable.
 
   Modificaciones:
   - 14/11/2023: Creado el script para hacer la tabla dinámica
+
+  Observaciones:
+  - Solamente puedes editar 1 tabla a la vez
+
 */
 
 let botonGuardar = document.getElementById("botonGuardarCambios");

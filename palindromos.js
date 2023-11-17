@@ -3,10 +3,7 @@
     Mario Morales Ortega (1745008)
     2DAW - DWEC - Palíndromos (Prácticas propuestas de los temas vistos hasta ahora)
 
-    Aplicación web para comprobar si una cadena es palíndromo.
-
-    Escribo ! y * en algunos comentarios porque uso una extension para que las lineas
-    que comento con esos símbolos/palabras aparezcan resaltadas y distinguirlas mejor
+    Aplicación web para comprobar si una cadena es un palíndromo.
 
 */
 

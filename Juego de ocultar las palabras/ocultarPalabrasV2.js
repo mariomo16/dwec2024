@@ -1,10 +1,21 @@
 /*
-Document   : ocultarPalabrasDOM.js
-Created on : 10 nov 2023
-Author     : Mario Morales Ortega (1745008) 2DAW - DWEC
-Info       : Aplicación web (juego) para intentar adivinar palabras ocultas de una cadena de texto (el usuario indica cuantas palabras se ocultaran).
 
-TODO       : No distinguir entre mayúsculas y minúsculas al comprobar los aciertos
+  Nombre del archivo: ocultarPalabrasV2.js
+  Autor: Mario Morales Ortega (1745008)
+  Fecha de creación: 10 de noviembre de 2023
+
+  Descripción:
+  Script para intentar adivinar palabras ocultas de una cadena de texto introducida por el usuario,
+  a la vez que también indicara el número de palabras que quiere ocultar.
+
+  Modificaciones:
+  - 10/11/2023: Creación del script
+  - 11/11/2023: Completado, revisado, y documentado el código
+  - 12/11/2023: Cambiado <input id="numeroPalabrasOcultar"/> a tipo 'number'
+
+  Observaciones:
+  - Al comprobar los aciertos, distingue entre mayúsculas y minúsculas
+
 */
 
 // Función para comprobar que datos ha introducido
