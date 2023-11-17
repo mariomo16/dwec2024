@@ -3,11 +3,11 @@
 - **Prácticas enviadas**
   - Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
 
-Dentro de cada archivo esta su descripción y mas información.
+<ins>Dentro de cada archivo esta su descripción y mas información.</ins>
   - `cifradoCesar.js` (Práctica 4.1)
   - `palindromos.js` (Práctica 5.7)
 - **CRUD de clientes**
-  - `crudClientesV1.js` (Práctica con prompt)
+  - `crudClientesV1.js` (=Práctica= con prompt)
   - `crudClientesV2.js` (Práctica usando el modelo DOM)
 - **Juego de ocultar las palabras**
   - `ocultarPalabrasV1.js` (Práctica con prompt)
