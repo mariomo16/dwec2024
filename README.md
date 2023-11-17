@@ -1,7 +1,6 @@
 # Desarrollo Web en entorno cliente 2024
 ## Prácticas
-- **Prácticas enviadas**
-  - Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
+> Dentro de **Prácticas enviadas** guardare los archivos que envié.
 
 <ins>Dentro de cada archivo esta su descripción y mas información.</ins>
   - `cifradoCesar.js` (Práctica 4.1)
