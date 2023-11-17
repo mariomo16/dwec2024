@@ -22,19 +22,17 @@
 function guardarDatos() {
   // Recojo el texto introducido para el juego
   let cadena = document.getElementById("texto").value;
-  // Recojo el "texto" (numero) introducido para saber cuantas palabras ocultar
-  //! Si se introduce un texto en vez de un número, que la suerte decida que va a pasar
+  // Recojo el numero introducido para saber cuantas palabras ocultar
   let numeroPalabrasOcultar = parseInt(
     document.getElementById("numeroPalabrasOcultar").value
   );
 
   // En el caso de que no haya introducido ningún texto
   if (cadena == "") {
-    // Le muestro un mensaje en un párrafo ya creado debajo de textarea
+    // Le muestro un mensaje en un párrafo ya creado al final de <form/>
     document.getElementById("alerta").innerHTML =
       "<b>¡Debes introducir una texto para poder jugar!</b>";
   } else {
-    // En el caso de que haya introducido texto correctamente
     // Quito el mensaje de alerta (en caso de que haya)
     document.getElementById("alerta").innerHTML = "";
     // Separo las palabras del texto y las guardo dentro de palabras[]
@@ -46,25 +44,19 @@ function guardarDatos() {
       numeroPalabrasOcultar <= 0 ||
       numeroPalabrasOcultar > palabras.length
     ) {
-      // Le muestro un mensaje en un párrafo ya creado debajo de textarea
+      // Le muestro un mensaje en un párrafo ya creado al final de <form/>
       document.getElementById("alerta").innerHTML =
         "<b>¡Comprueba el número de palabras a ocultar que has introducido!</b>";
     } else {
-      // Hago el input number readonly para que no pueda modificarlo
+      // Hago el <input id="numeroPalabrasOcultar"/> readonly para que no pueda modificarlo
       document
         .getElementById("numeroPalabrasOcultar")
         .setAttribute("readonly", "true");
-      // Hago el textarea readonly para que no pueda ser modificarlo
+      // Hago el <textarea/> readonly para que no pueda ser modificado
       document.getElementById("texto").setAttribute("readonly", "true");
       // Y quito el mensaje de alerta (en caso de que haya)
       let crearAlerta = (document.getElementById("alerta").innerHTML = "");
-      /*
-        Llamo a la función que se encarga de generar tantos números aleatorios como el usuario haya indicado, 
-        que se usaran como el indice de la palabra/s a ocultar (asi sera de forma aleatoria), y guarda esas palabras dentro de palabrasOcultas[]
-
-        Aparte, se creara un String donde se guardara el texto que se mostrara para que intente adivinar las palabras ocultas,
-        que se sustituirán por "*" dependiendo de cuantas letras tenga esa palabra
-      */
+      // Llamo a la función que se encargara de ocultar las palabras y mostrar el texto a adivinar
       ocultarPalabras(palabras, numeroPalabrasOcultar);
     }
   }
@@ -73,8 +65,8 @@ function guardarDatos() {
 // Función para ocultar las palabras
 function ocultarPalabras(palabras, numeroPalabrasOcultar) {
   palabrasOcultas = [];
-  // Bucle donde se generaran x indices aleatorios para elegir palabras aleatorias,
-  // el numero mas alto no puede ser mayor al numero de palabras introducidas
+  // Bucle donde se generaran x indices aleatorios para elegir palabras,
+  // el numero mas alto no sera mayor al numero de palabras introducidas
   do {
     let indiceAleatorio = Math.floor(Math.random() * palabras.length);
     while (!palabrasOcultas.includes(palabras[indiceAleatorio])) {
@@ -82,17 +74,20 @@ function ocultarPalabras(palabras, numeroPalabrasOcultar) {
     }
   } while (palabrasOcultas.length < numeroPalabrasOcultar);
 
-  // Creo una variable para guardar el texto con las palabras ocultadas
+  // Variable que guardara el texto que se mostrara para que pueda intentar adivinar las palabras ocultas
   let textoAdivinar = palabras.join(" ");
 
-  // Y de esa variable, cambio las palabras que estén dentro de palabrasOcultas[] por "*" según cuantas letras tenga la palabra
+  /*
+    Bucle para cambiar las palabras de la variable textoAdivinar que estén dentro de palabrasOcultas[]
+    Esas palabras las cambiara por tantas "*" como letras tenga la palabra
+  */
   for (let i = 0; i < palabrasOcultas.length; i++) {
     textoAdivinar = textoAdivinar.replace(
       palabrasOcultas[i],
       "*".repeat(palabrasOcultas[i].length)
     );
   }
-  // Escondo el cuadro de texto donde el usuario ha escrito, para que no pueda ver
+  // Escondo el cuadro de texto donde el usuario ha escrito, para que no pueda verlo
   document.getElementById("texto").setAttribute("hidden", "true");
   // Deshabilito el botón de ocultar las palabras
   document
