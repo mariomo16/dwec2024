@@ -3,7 +3,7 @@
 - **Prácticas enviadas**
   - Aquí guardare las prácticas que he enviado, para saber que mande exactamente.
 
-Dentro de cada archivo esta la descripción y mas información.
+Dentro de cada archivo esta su descripción y mas información.
   - `cifradoCesar.js` (Práctica 4.1)
   - `palindromos.js` (Práctica 5.7)
 - **CRUD de clientes**
