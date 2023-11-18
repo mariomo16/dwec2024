@@ -13,6 +13,5 @@
   - `ocultarPalabrasV2.js` (Práctica usando el modelo DOM)
 - **Ejercicio de tabla dinámica**
   - `tablaDinamicaV1.js`
-  - `tablaDinamicaV1.1.js`
 - **Ejercicios del modelo DOM** (U.T. 7.)
 - `mouseMove.html` (Práctica 8.1)
