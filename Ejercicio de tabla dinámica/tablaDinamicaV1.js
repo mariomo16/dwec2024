@@ -1,28 +1,35 @@
 /*
 
-  Nombre del archivo: tablaDinamicaV1.js
-  Autor: Mario Morales Ortega (1745008)
-  Fecha de creación: 14 de noviembre de 2023
+    Nombre del archivo: tablaDinamicaV1.1.js
+    Autor: Mario Morales Ortega (1745008)
+    Fecha de creación: 14 de noviembre de 2023
 
-  Descripción:
-  Script para hacer los campos de una tabla HTML editable.
+    Descripción:
+    Script para hacer los campos de una tabla HTML editable.
 
-  Modificaciones:
-  - 14/11/2023: Creado el script para hacer la tabla dinámica
-
-  Observaciones:
-  - Solamente puedes editar 1 tabla a la vez
+    Modificaciones:
+    - 14/11/2023: Creado el script
+    - 15/11/2023: Corregido problema para poder editar varias filas a la vez y poder descartar los cambios
 
 */
 
 let botonGuardar = document.getElementById("botonGuardarCambios");
 let botonDescartar = document.getElementById("botonDescartarCambios");
+// Creo una variable vacía para poder guardar el contenido de la tabla
+let tablaSinModificar = "";
 
 function editarFila(nodo) {
-    // Necesito hacerlo asi :p
-    tablaSinModificar = document.getElementById("tabla1").innerHTML;
+    /*
+    Aquí hago una comprobación, para saber si la variable global esta vacía o no,
+    en las funciones guardar/descartarCambios, vuelvo a vaciar la variable para que solamente guarde datos
+    después de haber guardado o descartados los cambios
+    */
+    if (tablaSinModificar == "") {
+        tablaSinModificar = document.getElementById("tabla1").innerHTML;
+    }
     // Cambio el texto del <span/> seleccionado
     nodo.value = "Editando";
+    nodo.setAttribute("disabled", "true");
     // Muestro los botones para guardar/descartar cambios
     botonGuardar.removeAttribute("hidden");
     botonDescartar.removeAttribute("hidden");
@@ -33,10 +40,6 @@ function editarFila(nodo) {
     // Bucle para hacer los campos de la fila seleccionada editable
     for (let i = 1; i < nodoTr.children.length - 1; i++) {
         nodoTr.children[i].setAttribute("contenteditable", "true");
-    }
-    let botonEditar = document.getElementsByClassName("botonEditar");
-    for (let i = 0; i < botonEditar.length; i++) {
-        botonEditar[i].setAttribute("disabled", "true");
     }
 }
 
@@ -59,21 +62,18 @@ function guardarCambios() {
             nodosTd[i].innerHTML = spanHTML;
         }
     }
-    // Obtengo los nodos que tienen la clase editar (todos los <span/>)
-    let spanEditar = document.getElementsByClassName("botonEditar");
-    // Cambio el texto "Editando" a "Editar"
-    for (let i = 0; i < spanEditar.length; i++) {
-        spanEditar[i].innerHTML = "Editar";
-    }
     // Escondo nuevamente los botones para guardar/descartar cambios
     botonGuardar.setAttribute("hidden", "true");
     botonDescartar.setAttribute("hidden", "true");
 
+    // Obtengo los nodos (botones) que tienen la clase editar
     let botonEditar = document.getElementsByClassName("botonEditar");
+    // Cambio el texto "Editando" a "Editar"
     for (let i = 0; i < botonEditar.length; i++) {
         botonEditar[i].removeAttribute("disabled");
         botonEditar[i].value = "Editar";
     }
+    tablaSinModificar = "";
 }
 
 function descartarCambios() {
@@ -86,4 +86,5 @@ function descartarCambios() {
         botonEditar[i].removeAttribute("disabled");
         botonEditar[i].value = "Editar";
     }
+    tablaSinModificar = "";
 }
