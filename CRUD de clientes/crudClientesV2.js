@@ -1,28 +1,28 @@
 /*
 
-  Nombre del archivo: crudClientesV2.js
-  Autor: Mario Morales Ortega (1745008)
-  Fecha de creación: 06 de noviembre de 2023
+    Nombre del archivo: crudClientesV2.js
+    Autor: Mario Morales Ortega (1745008)
+    Fecha de creación: 06 de noviembre de 2023
 
-  Descripción:
-  Esta aplicación web maneja una lista de clientes (CRUD: crear, leer, actualizar, y borrar) con el modelo DOM (Document Object Model) en RAM
+    Descripción:
+    Esta aplicación web maneja una lista de clientes (CRUD: crear, leer, actualizar, y borrar) con el modelo DOM (Document Object Model) en RAM
 
-  Modificaciones:
-  - 06/11/2023: Creación del script
-  - 07/11/2023: Optimizaciones de código y creación de funciones para "limpiar" los datos en pantalla
-  - 12/11/2023: Optimizaciones de código y cambiado la forma en la que se formatea la fecha
-  - 18/11/2023: Optimizaciones de código
+    Modificaciones:
+    - 06/11/2023: Creación del script
+    - 07/11/2023: Optimizaciones de código y creación de funciones para "limpiar" los datos en pantalla
+    - 12/11/2023: Optimizaciones de código y cambiado la forma en la que se formatea la fecha
+    - 18/11/2023: Optimizaciones de código
 
-  !Avisos:
-  - Al crear un 'cliente' LITERAL con la fecha en formato dd/MM/yyyy, se lee como mm/DD/yyyy, y puede causar errores
-    Ej: "26/09/1995" mostrara "Invalid date"
+    !Avisos:
+    - Al crear un 'cliente' LITERAL con la fecha en formato dd/MM/yyyy, se lee como mm/DD/yyyy, y puede causar errores
+      Ej: "26/09/1995" mostrara "Invalid date"
 
-  TODOs:
-  - Un botón para comprobar datos introducidos
+    TODOs:
+    - Un botón para comprobar datos introducidos
 
-  Fuente:
-  - Para mostrar la fecha de nacimiento he usado el método .toLocaleDateString() con formato es-ES y pasándole un objeto como opción
-    https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=846:formato-fechas-javascript-tostring-tolocaledatestring-tolocaletimestrig-totimestring-ejemplo-cu01163e&catid=78&Itemid=206
+    Fuente:
+    - Para mostrar la fecha de nacimiento he usado el método .toLocaleDateString() con formato es-ES y pasándole un objeto como opción
+      https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=846:formato-fechas-javascript-tostring-tolocaledatestring-tolocaletimestrig-totimestring-ejemplo-cu01163e&catid=78&Itemid=206
 
 */
 

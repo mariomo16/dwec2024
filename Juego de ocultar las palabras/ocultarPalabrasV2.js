@@ -1,21 +1,21 @@
 /*
 
-  Nombre del archivo: ocultarPalabrasV2.js
-  Autor: Mario Morales Ortega (1745008)
-  Fecha de creación: 10 de noviembre de 2023
+    Nombre del archivo: ocultarPalabrasV2.js
+    Autor: Mario Morales Ortega (1745008)
+    Fecha de creación: 10 de noviembre de 2023
 
-  Descripción:
-  Script para intentar adivinar palabras ocultas de una cadena de texto introducida por el usuario,
-  a la vez que también indicara el número de palabras que quiere ocultar.
+    Descripción:
+    Script para intentar adivinar palabras ocultas de una cadena de texto introducida por el usuario,
+    a la vez que también indicara el número de palabras que quiere ocultar.
 
-  Modificaciones:
-  - 10/11/2023: Creación del script
-  - 11/11/2023: Completado, revisado, y documentado el código
-  - 12/11/2023: Cambiado <input id="numeroPalabrasOcultar"/> a tipo 'number'
-  - 18/11/2023: Optimizaciones de código
+    Modificaciones:
+    - 10/11/2023: Creación del script
+    - 11/11/2023: Completado, revisado, y documentado el código
+    - 12/11/2023: Cambiado <input id="numeroPalabrasOcultar"/> a tipo 'number'
+    - 18/11/2023: Optimizaciones de código
 
-  Observaciones:
-  - Al comprobar los aciertos, distingue entre mayúsculas y minúsculas
+    Observaciones:
+    - Al comprobar los aciertos, distingue entre mayúsculas y minúsculas
 
 */
 

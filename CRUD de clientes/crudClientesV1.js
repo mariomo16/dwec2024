@@ -1,24 +1,24 @@
 /*
 
-  Nombre del archivo: crudClientesV1.js
-  Autor: Mario Morales Ortega (1745008)
-  Fecha de creación: 24 de octubre de 2023
+    Nombre del archivo: crudClientesV1.js
+    Autor: Mario Morales Ortega (1745008)
+    Fecha de creación: 24 de octubre de 2023
 
-  Descripción:
-  Esta aplicación web maneja una lista de clientes (CRUD: crear, leer, actualizar, y borrar) usando .prompt() en RAM
+    Descripción:
+    Esta aplicación web maneja una lista de clientes (CRUD: crear, leer, actualizar, y borrar) usando .prompt() en RAM
 
-  Modificaciones:
-  - 24/10/2023: Creación del script
-  - 25/10/2023: Modificado función buscarCliente() y creado expresiones regulares para los datos
-  - 26/10/2023: Creado funciones para modificar/borrar clientes por ID (indice)
-  - 30/10/2023: Correcciones de código
+    Modificaciones:
+    - 24/10/2023: Creación del script
+    - 25/10/2023: Modificado función buscarCliente() y creado expresiones regulares para los datos
+    - 26/10/2023: Creado funciones para modificar/borrar clientes por ID (indice)
+    - 30/10/2023: Correcciones de código
 
-  Fuente:
-  - Para la expresión regular de la fecha de nacimiento he buscado una ya hecha
-    https://stackoverflow.com/questions/22061723/regex-date-validation-for-yyyy-mm-dd
+    Fuente:
+    - Para la expresión regular de la fecha de nacimiento he buscado una ya hecha
+      https://stackoverflow.com/questions/22061723/regex-date-validation-for-yyyy-mm-dd
 
-  - Para mostrar la fecha de nacimiento he usado el método .toISOString()
-    https://stackoverflow.com/questions/34053715/how-to-output-date-in-javascript-in-iso-8601-without-milliseconds-and-with-z
+    - Para mostrar la fecha de nacimiento he usado el método .toISOString()
+      https://stackoverflow.com/questions/34053715/how-to-output-date-in-javascript-in-iso-8601-without-milliseconds-and-with-z
 
 */
 
