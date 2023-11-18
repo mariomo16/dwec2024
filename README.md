@@ -6,7 +6,7 @@
   - `cifradoCesar.js` (Práctica 4.1)
   - `palindromos.js` (Práctica 5.7)
 - **CRUD de clientes**
-  - `crudClientesV1.js` (=Práctica= con prompt)
+  - `crudClientesV1.js` (Práctica con prompt)
   - `crudClientesV2.js` (Práctica usando el modelo DOM)
 - **Juego de ocultar las palabras**
   - `ocultarPalabrasV1.js` (Práctica con prompt)
