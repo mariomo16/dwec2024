@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JUEGO: Ocultar palabras</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="juego">
+      <fieldset>
+        <legend>Juego de ocultar palabras</legend>
+        <label for="">Número de palabras a ocultar:</label>
+        <input
+          type="number"
+          id="numeroPalabrasOcultar"
+          placeholder=""
+        />
+        <input
+          type="button"
+          value="Ocultar palabras"
+          id="ocultarPalabrasBoton"
+          onclick="guardarDatos()"
+        />
+        <input
+          type="button"
+          value="Comprobar"
+          id="comprobarRespuesta"
+          onclick="comprobarRespuestaa(document.getElementById('numeroPalabrasOcultar').value, document.getElementById('almacenPalabrasOcultar').value, document.getElementById('texto').value)"
+          disabled
+        />
+        <input
+          type="button"
+          id="reset"
+          value="Volver a jugar"
+          disabled
+          onclick="resetear()"
+        />
+        <br />
+        <textarea id="texto" cols="100" rows="4"></textarea>
+        <textarea
+          id="textoAdivinar"
+          cols="100"
+          rows="1"
+          placeholder="Aquí aparecerá el texto con las palabras que debes intentar adivinar"
+          readonly
+          hidden
+        ></textarea>
+        <br />
+        <textarea
+          id="respuesta"
+          cols="100"
+          rows="1"
+          placeholder="Introduce aquí las palabras que tienes que adivinar"
+          hidden
+        ></textarea>
+        <textarea
+          name=""
+          id="almacenPalabrasOcultar"
+          cols="30"
+          rows="10"
+          hidden
+        ></textarea>
+        <textarea name="" id="resultado" cols="100" rows="3" hidden></textarea>
+      </fieldset>
+    </form>
+    <span id="alerta" class="advice"></span>
+    <script src="./ocultarPalabrasV2.js"></script>
+  </body>
+</html>

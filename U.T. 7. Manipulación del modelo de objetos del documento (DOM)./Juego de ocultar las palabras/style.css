@@ -1,0 +1,89 @@
+/* BASE */
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html {
+  height: 100%;
+}
+body {
+  /*
+  background-color: #1d1b26;
+  */
+  background-color: #191b1d;
+}
+
+/* MENSAJE DE AVISO */
+.advice {
+  display: block;
+  text-align: center;
+  color: lightcoral;
+  margin-top: 15px;
+}
+
+/* "FORMULARIO" DONDE SE INTRODUCEN LOS DATOS */
+form {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+  text-align: center;
+  max-width: fit-content;
+  color: #e3e1ea;
+}
+fieldset {
+  border-style: solid 1px #c7c3d5;
+  border-radius: 10px;
+  padding: 15px 20px 20px 20px;
+}
+
+input[type="number"] {
+  color: #1d1b26;
+  background-color: #e3e1ea;
+  border: solid #e3e1ea;
+  border-radius: 3px;
+  width: 25px;
+}
+input[type="button"] {
+  color: #1d1b26;
+  background-color: #e3e1ea;
+  border: solid #e3e1ea;
+  border-radius: 3px;
+}
+input[type="button"]:enabled:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+input[type="button"]:disabled {
+  color: #8e88aa;
+}
+
+textarea {
+  resize: none;
+  color: #1d1b26;
+  /*background-color: #b8b4ca;*/
+  border-radius: 2px;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+/* OTROS */
+p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Para quitar las fechas del input="number"*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
