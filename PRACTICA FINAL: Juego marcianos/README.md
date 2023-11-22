@@ -9,10 +9,10 @@
    - Corregido error que hacia que los margenes no fueran correctos
      - Corregido error que hacia que los margenes laterales no fueran correctos
    - Corregido un error con los margenes si se ejecuta con la consola de desarrollador abierta
-## v0.3.1
+## v0.2.1
  - Ahora la nave se puede mover en diagonal
  - Agregado auto focus al campo nombre del formulario
  - Centrado la nave del jugador para todas las resoluciones
  - Optimizado creación de enemigos
  - Creado Evento para crear misiles (tecla: 'space')
-   - Por ahora se quedan en la esquina de la pantalla sin moverse
+ - Corregido otro error con los margenes de la pantalla, al haber cambiado el CSS
