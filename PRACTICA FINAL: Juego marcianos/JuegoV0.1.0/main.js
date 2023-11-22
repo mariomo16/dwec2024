@@ -10,11 +10,7 @@
         https://jsfiddle.net/pas9y/
     - Para poder modificar el CSS sin que se me reinicie la posición de la nave
         https://developer.mozilla.org/es/docs/Web/API/Window/getComputedStyle
-    - Colisiones
-        https://developer.mozilla.org/es/docs/Games/Techniques/2D_collision_detection
-        https://jsfiddle.net/jlr7245/217jrozd/3/
 
-        https://www.toptal.com/developers/keycode
 */
 
 // Variables necesarias
@@ -120,37 +116,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// coordenadaY = parseInt(getComputedStyle(naveJugador).bottom);
-
-/*
-meter los enemigos con sus coordenadas en arrays y hacer que se muevan
-
-
-function obtenerCoordenadasDesdeEstilo(elemento) {
-  let estilo = window.getComputedStyle(elemento);
-  let left = parseInt(estilo.left) || 0;
-  let top = parseInt(estilo.bottom) || 0;
-  return { x: left, y: top };
-}
-
-var coordenadas = [];
-
-// Establecer las coordenadas mediante style.left y style.top para la primera imagen
-img1.style.position = "absolute";  
-img1.style.left = "100px";
-img1.style.top = "50px";
-coordenadas.push(obtenerCoordenadasDesdeEstilo(img1));
-
-// Establecer las coordenadas mediante style.left y style.top para la segunda imagen
-img2.style.position = "absolute";  
-img2.style.left = "200px";
-img2.style.top = "100px";
-coordenadas.push(obtenerCoordenadasDesdeEstilo(img2));
-
-// Mostrar las coordenadas en la consola
-console.log(coordenadas);
-*/
-
 //Definimos e iniciamos las variables necesarias
 var y = 0; // coordenada y inicial enemigos
 var x = 0; // coordenada x inicial enemigos
@@ -239,99 +204,3 @@ function exitFullscreen() {
         document.webkitCancelFullScreen();
     }
 }
-
-/*     ----------COMENTARIOS IMPORTANTES ----------     */
-
-// Comprobar el tamaño de la pantalla del usuario, en el caso de que el otro no funcione en algún navegador
-/*
-let viewportWidth;
-let viewportHeight;
-
-// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
-
-if (typeof window.innerWidth != "undefined") {
-    (viewportWidth = window.innerWidth), (viewportHeight = window.innerHeight);
-}
-
-// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-else if (
-    typeof document.documentElement != "undefined" &&
-    typeof document.documentElement.clientWidth != "undefined" &&
-    document.documentElement.clientWidth != 0
-) {
-    (viewportWidth = document.documentElement.clientWidth),
-        (viewportHeight = document.documentElement.clientHeight);
-}
-
-// older versions of IE
-else {
-    (viewportWidth = document.getElementsByTagName("body")[0].clientWidth),
-        (viewportHeight =
-            document.getElementsByTagName("body")[0].clientHeight);
-}
-*/
-
-/*     -----------------------------------------------------------------     */
-
-// Mover la imagen de la nave
-/*
-// Objeto que guardara las "coordenadas" X e Y de la nave
-let currentPosition = { x: 0, y: 0 };
-let moveAmount = 10; // Pixeles que se moverá la nave
-
-// Evento para mover la nave con las flechas y WASD
-window.addEventListener("keydown", (ev) => {
-    switch (ev.key) {
-        case "ArrowUp":
-            currentPosition.y -= moveAmount;
-            break;
-        case "ArrowDown":
-            currentPosition.y += moveAmount;
-            break;
-        case "ArrowLeft":
-            currentPosition.x -= moveAmount;
-            break;
-        case "ArrowRight":
-            currentPosition.x += moveAmount;
-            break;
-        case "w":
-            currentPosition.y -= moveAmount;
-            break;
-        case "a":
-            currentPosition.x -= moveAmount;
-            break;
-        case "s":
-            currentPosition.y += moveAmount;
-            break;
-        case "d":
-            currentPosition.x += moveAmount;
-            break;
-    }
-
-    naveJugador.style.left = currentPosition.x + "px";
-    naveJugador.style.top = currentPosition.y + "px";
-});
-*/
-
-/*
-function comprobarColision(
-    naveJugador,
-    coordenadaX,
-    coordenadaY,
-    navesEnemigas,
-    x,
-    y
-) {
-    for (let i = 0; i < navesEnemigas.length; i++) {
-        if (
-            coordenadaX < x + navesEnemigas[i].width &&
-            coordenadaX + naveJugador.width > x &&
-            coordenadaY < y + navesEnemigas[i].height &&
-            naveJugador.height + coordenadaY > y
-        ) {
-            return true;
-        }
-        return false;
-    }
-}
-*/
