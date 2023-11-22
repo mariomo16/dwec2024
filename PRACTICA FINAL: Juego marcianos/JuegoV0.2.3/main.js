@@ -14,6 +14,9 @@
 
     - Para poder mover la imagen (nave) en diagonal
         https://stackoverflow.com/questions/5203407/how-to-detect-if-multiple-keys-are-pressed-at-once-using-javascript
+
+    - Para obtener los códigos de cada tecla necesaria
+        https://www.toptal.com/developers/keycode
     
 */
 
