@@ -1,41 +1,26 @@
 /*
 
-    Nombre del Script: main.js
-    ---------------------------------------
-    Descripción: 
-    Juego web.
-    ---------------------------------------
-    Autor: 
-    Mario Morales Ortega (1745008)
-    ---------------------------------------
-    Fecha de Creación: 
-    20 de noviembre de 2023
-    ---------------------------------------
-    Última Modificación: 
-    22 de noviembre de 2023
-    ---------------------------------------
-    Versión: 
-    0.1.0
-    ---------------------------------------
-    Notas de la Versión: 
-    - Creado una ventana modal para mostrar un formulario al usuario
-      - Le pide al usuario elegir dificultad (que cambiara el número de enemigos), entre otras cosas
-    - La nave enemiga se mueve rebotando contra los margenes de la pantalla
-    - La nave del jugador se mueve (solamente arriba, derecha, izquierda, abajo)
-      - Puede salirse de los limites de la pantalla
+    Nombre del archivo: main.js
+    Autor: Mario Morales Ortega (1745008)
+    Fecha de creación: 20 de noviembre de 2023
+
+    Fuente:
+    - Obtener el viewport del cliente para poner limite al body y que las naves no se salgan de la pantalla
+        https://stackoverflow.com/questions/16776764/move-div-with-javascript-inside-bodys-limits
+        https://jsfiddle.net/pas9y/
+    - Para poder modificar el CSS sin que se me reinicie la posición de la nave
+        https://developer.mozilla.org/es/docs/Web/API/Window/getComputedStyle
+    - Colisiones
+        https://developer.mozilla.org/es/docs/Games/Techniques/2D_collision_detection
+        https://jsfiddle.net/jlr7245/217jrozd/3/
 
 */
 
 // Variables necesarias
 let dificultad;
 
-let viewportWidth = window.innerWidth;
-let viewportHeight = window.innerHeight;
-
-let naveJugador = document.getElementById("naveJugador"); // Puntero a la imagen de la nave
-let coordenadaX; // Ajuste horizontal
-let coordenadaY; // Ajuste vertical
-let velocidadJugador = 20; // Pixeles que se moverá la nave
+let viewportWidth = document.body.clientWidth;
+let viewportHeight = document.body.clientHeight;
 
 let lienzo = document.getElementById("lienzo");
 
@@ -63,7 +48,7 @@ formulario.innerHTML = `
     <input type="checkbox" id="guardarPuntuacion" checked />
     <br />
     <input type="button" id="startGame" value="Empezar partida" disabled />`;
-    
+
 document.body.appendChild(ventanaModal);
 ventanaModal.appendChild(formulario);
 
@@ -100,31 +85,59 @@ document.getElementById("startGame").addEventListener("click", (e) => {
         setTimeout(() => {
             crearEnemigo = document.createElement("img");
             crearEnemigo.setAttribute("class", "naveEnemiga");
-            crearEnemigo.setAttribute(
-                "src",
-                "./images/enemigo.png"
-            );
+            crearEnemigo.setAttribute("src", "./images/ufoRed.png");
             document.getElementById("lienzo").appendChild(crearEnemigo);
         }, 900 * i);
     }
 });
 
+let naveJugador = document.getElementById("naveJugador"); // Puntero a la imagen de la nave
+let coordenadaX; // Ajuste horizontal
+let coordenadaY; // Ajuste vertical
+let velocidadJugador = 20; // Pixeles que se moverá la nave
+
 document.addEventListener("keydown", (e) => {
-    // console.log(e);
+    /*
+    Antes de asignar las nuevas "coordenadas", las compruebo para que no se salgan de la pantalla
+    Garantiza que coordenadaX/Y no sea menor que 0 ni mayor que bodyWidth/Height - naveJugador.width/height
+
+    Si coordenadaX/Y es menor que 0, se establecerá en 0.
+    Si coordenadaX/Y es mayor que bodyWidth/Height - nave.width/height, se establecerá en bodyWidth/Height - nave.width/height
+    */
     if (e.key === "w" || e.key === "W" || e.key === "ArrowUp") {
-        coordenadaY = parseInt(getComputedStyle(naveJugador).bottom);
+        coordenadaY = parseInt(getComputedStyle(naveJugador).bottom); // Obtengo el style.bottom de naveJugador
+        coordenadaY = Math.max(
+            0,
+            Math.min(coordenadaY, viewportHeight - naveJugador.height)
+        );
+        // Le asigno la nueva "coordenada" Y
         naveJugador.style.bottom = coordenadaY + velocidadJugador + "px";
     }
     if (e.key === "a" || e.key === "A" || e.key === "ArrowLeft") {
-        coordenadaX = parseInt(getComputedStyle(naveJugador).left);
+        coordenadaX = parseInt(getComputedStyle(naveJugador).left); // Obtengo el style.left de naveJugador
+        coordenadaX = Math.max(
+            0,
+            Math.min(coordenadaX, viewportWidth - naveJugador.width)
+        );
+        // Le asigno la nueva "coordenada" X
         naveJugador.style.left = coordenadaX - velocidadJugador + "px";
     }
     if (e.key === "s" || e.key === "S" || e.key === "ArrowDown") {
-        coordenadaY = parseInt(getComputedStyle(naveJugador).bottom);
+        coordenadaY = parseInt(getComputedStyle(naveJugador).bottom); // Obtengo el style.bottom de naveJugador
+        coordenadaY = Math.max(
+            0,
+            Math.min(coordenadaY, viewportHeight - naveJugador.height)
+        );
+        // Le asigno la nueva "coordenada" Y
         naveJugador.style.bottom = coordenadaY - velocidadJugador + "px";
     }
     if (e.key === "d" || e.key === "D" || e.key === "ArrowRight") {
-        coordenadaX = parseInt(getComputedStyle(naveJugador).left);
+        coordenadaX = parseInt(getComputedStyle(naveJugador).left); // Obtengo el style.left de naveJugador
+        coordenadaX = Math.max(
+            0,
+            Math.min(coordenadaX, viewportWidth - naveJugador.width)
+        );
+        // Le asigno la nueva "coordenada" X
         naveJugador.style.left = coordenadaX + velocidadJugador + "px";
     }
 });
@@ -182,5 +195,38 @@ function mover() {
     for (let i = 0; i < navesEnemigas.length; i++) {
         navesEnemigas[i].style.left = String(x) + "px";
         navesEnemigas[i].style.top = String(y) + "px";
+    }
+}
+
+// Funciones para poner/quitar pantalla completa
+function fullscreen() {
+    if (
+        document.fullScreenElement !== null || // método alternativo
+        (!document.mozFullScreen && !document.webkitIsFullScreen)
+    ) {
+        // métodos actuales
+        if (document.documentElement.requestFullScreen) {
+            document.documentElement.requestFullScreen();
+        }
+        if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+        }
+        if (document.documentElement.webkitRequestFullScreen) {
+            document.documentElement.webkitRequestFullScreen(
+                Element.ALLOW_KEYBOARD_INPUT
+            );
+        }
+    }
+}
+
+function exitFullscreen() {
+    if (document.cancelFullScreen) {
+        document.cancelFullScreen();
+    }
+    if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    }
+    if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
     }
 }

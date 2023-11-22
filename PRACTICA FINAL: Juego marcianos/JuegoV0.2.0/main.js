@@ -1,31 +1,59 @@
 /*
 
-    Nombre del archivo: main.js
-    Autor: Mario Morales Ortega (1745008)
-    Fecha de creación: 20 de noviembre de 2023
+    Nombre del Script: main.js
+    ---------------------------------------
+    Descripción: 
+    Juego web.
+    ---------------------------------------
+    Autor: 
+    Mario Morales Ortega (1745008)
+    ---------------------------------------
+    Fecha de Creación: 
+    20 de noviembre de 2023
+    ---------------------------------------
+    Última Modificación: 
+    22 de noviembre de 2023
+    ---------------------------------------
+    Versión: 
+    0.1.2
+    ---------------------------------------
+    Notas de la Versión: 
+    - Al mover la nave ahora comprueba los margenes de la pantalla para no salirse
+      - Corregido error que hacia que los margenes no fueran correctos
+      - Corregido error que hacia que los margenes laterales no fueran correctos
+      - Corregido un error con los margenes si se ejecuta con la consola de desarrollador abierta
 
-    Fuente:
+    Fuentes:
     - Obtener el viewport del cliente para poner limite al body y que las naves no se salgan de la pantalla
         https://stackoverflow.com/questions/16776764/move-div-with-javascript-inside-bodys-limits
-        https://jsfiddle.net/pas9y/
-    - Para poder modificar el CSS sin que se me reinicie la posición de la nave
-        https://developer.mozilla.org/es/docs/Web/API/Window/getComputedStyle
-    - Colisiones
-        https://developer.mozilla.org/es/docs/Games/Techniques/2D_collision_detection
-        https://jsfiddle.net/jlr7245/217jrozd/3/
+
+    - Para poder mover la nave del jugador en diagonal
+        https://stackoverflow.com/questions/5203407/how-to-detect-if-multiple-keys-are-pressed-at-once-using-javascript
+    
+    - Para obtener los códigos de cada tecla necesaria
+        https://www.toptal.com/developers/keycode
 
 */
 
 // Variables necesarias
+let ventanaModal = document.createElement("dialog");
+let formulario = document.createElement("form");
+
+let nombreJugador;
 let dificultad;
 
-let viewportWidth = document.body.clientWidth;
-let viewportHeight = document.body.clientHeight;
+let viewportWidth = document.body.clientWidth; // Anchura del cliente
+let viewportHeight = document.body.clientHeight; // Altura del cliente
 
-let lienzo = document.getElementById("lienzo");
+let naveJugador = document.getElementById("naveJugador"); // Puntero a la imagen de la nave
+let coordenadaX; // Ajuste horizontal
+let coordenadaY; // Ajuste vertical
+let velocidadJugador = 30; // Pixeles que se moverá la nave
+const teclasPulsadas = new Map(); // Mapa donde se guardaran las teclas pulsadas para el movimiento
+
+let lienzo = document.getElementById("lienzo"); // div donde se generaran los enemigos
 
 // Creo y muestro la ventana modal con un texto y el formulario
-let ventanaModal = document.createElement("dialog");
 ventanaModal.setAttribute("open", "true");
 ventanaModal.innerHTML = `
     <h1>Juego Marcianos</h1>
@@ -34,7 +62,6 @@ ventanaModal.innerHTML = `
         <span class="sub">en el menor tiempo posible</span>!
     </p>`;
 
-let formulario = document.createElement("form");
 formulario.innerHTML = `
     <label for="nombre">Nombre de jugador</label><br />
     <input type="text" id="nombre" placeholder="Introduce un nombre"/>
@@ -52,8 +79,8 @@ formulario.innerHTML = `
 document.body.appendChild(ventanaModal);
 ventanaModal.appendChild(formulario);
 
-let nombreJugador = document.getElementById("nombre");
-// Evento para comprobar si se ha introducido o no un nombre, y asi desbloquear el boton para empezar
+nombreJugador = document.getElementById("nombre");
+// Evento para comprobar si se ha introducido o no un nombre, y asi desbloquear el botón para empezar (crear los enemigos)
 nombreJugador.addEventListener("change", (e) => {
     if (nombreJugador == "") {
         document.getElementById("startGame").setAttribute("disabled", "true");
@@ -77,7 +104,7 @@ document.getElementById("startGame").addEventListener("click", (e) => {
     if (dificultad == "hard") {
         numeroEnemigos = 12;
     }
-    // Quito la ventana modal y el evento del boton
+    // Quito la ventana modal y el evento del botón
     document.getElementById("startGame").removeEventListener;
     ventanaModal.remove();
     for (let i = 0; i < numeroEnemigos; i++) {
@@ -85,62 +112,139 @@ document.getElementById("startGame").addEventListener("click", (e) => {
         setTimeout(() => {
             crearEnemigo = document.createElement("img");
             crearEnemigo.setAttribute("class", "naveEnemiga");
-            crearEnemigo.setAttribute("src", "./images/ufoRed.png");
+            crearEnemigo.setAttribute("src", "./images/Naves/enemigo.png");
             document.getElementById("lienzo").appendChild(crearEnemigo);
         }, 900 * i);
     }
 });
 
-let naveJugador = document.getElementById("naveJugador"); // Puntero a la imagen de la nave
-let coordenadaX; // Ajuste horizontal
-let coordenadaY; // Ajuste vertical
-let velocidadJugador = 20; // Pixeles que se moverá la nave
-
+// EVENTO PARA MOVER LA NAVE DEL JUGADOR
 document.addEventListener("keydown", (e) => {
-    /*
-    Antes de asignar las nuevas "coordenadas", las compruebo para que no se salgan de la pantalla
-    Garantiza que coordenadaX/Y no sea menor que 0 ni mayor que bodyWidth/Height - naveJugador.width/height
+    // Compruebo si la tecla pulsada esta dentro de 'teclasPulsadas', si no es asi, lo añado
+    if (!teclasPulsadas.has(e.keyCode)) {
+        teclasPulsadas.set(e.keyCode, e.key); // keyCode esta deprecado
+    }
 
-    Si coordenadaX/Y es menor que 0, se establecerá en 0.
-    Si coordenadaX/Y es mayor que bodyWidth/Height - nave.width/height, se establecerá en bodyWidth/Height - nave.width/height
-    */
-    if (e.key === "w" || e.key === "W" || e.key === "ArrowUp") {
-        coordenadaY = parseInt(getComputedStyle(naveJugador).bottom); // Obtengo el style.bottom de naveJugador
-        coordenadaY = Math.max(
-            0,
-            Math.min(coordenadaY, viewportHeight - naveJugador.height)
+    if (
+        // MOVER ARRIBA DERECHA (W || ArrowUp) & (D || ArrowRight)
+        (teclasPulsadas.has(87) || teclasPulsadas.has(38)) &&
+        (teclasPulsadas.has(68) || teclasPulsadas.has(39))
+    ) {
+        coordenadaY = naveJugador.offsetTop;
+        coordenadaY = Math.max(0, coordenadaY - velocidadJugador);
+        naveJugador.style.top = coordenadaY + "px";
+
+        coordenadaX = naveJugador.offsetLeft;
+        coordenadaX = Math.min(
+            viewportWidth - naveJugador.offsetWidth / 2,
+            coordenadaX + velocidadJugador
         );
-        // Le asigno la nueva "coordenada" Y
-        naveJugador.style.bottom = coordenadaY + velocidadJugador + "px";
-    }
-    if (e.key === "a" || e.key === "A" || e.key === "ArrowLeft") {
-        coordenadaX = parseInt(getComputedStyle(naveJugador).left); // Obtengo el style.left de naveJugador
+        naveJugador.style.left = coordenadaX + "px";
+    } else if (
+        // MOVER ARRIBA IZQUIERDA (W || ArrowUp) & (A || ArrowLeft)
+        (teclasPulsadas.has(87) || teclasPulsadas.has(38)) &&
+        (teclasPulsadas.has(65) || teclasPulsadas.has(37))
+    ) {
+        coordenadaY = naveJugador.offsetTop;
+        coordenadaY = Math.max(0, coordenadaY - velocidadJugador);
+        naveJugador.style.top = coordenadaY + "px";
+
+        coordenadaX = naveJugador.offsetLeft;
+        // En este caso le pongo naveJugador.offsetWidth/2 porque se comía media nave al poner 0
         coordenadaX = Math.max(
-            0,
-            Math.min(coordenadaX, viewportWidth - naveJugador.width)
+            naveJugador.offsetWidth / 2,
+            coordenadaX - velocidadJugador
         );
-        // Le asigno la nueva "coordenada" X
-        naveJugador.style.left = coordenadaX - velocidadJugador + "px";
-    }
-    if (e.key === "s" || e.key === "S" || e.key === "ArrowDown") {
-        coordenadaY = parseInt(getComputedStyle(naveJugador).bottom); // Obtengo el style.bottom de naveJugador
-        coordenadaY = Math.max(
-            0,
-            Math.min(coordenadaY, viewportHeight - naveJugador.height)
+        naveJugador.style.left = coordenadaX + "px";
+    } else if (teclasPulsadas.has(87) || teclasPulsadas.has(38)) {
+        // MOVER ARRIBA (W || ArrowUp)
+        coordenadaY = naveJugador.offsetTop;
+        coordenadaY = Math.max(0, coordenadaY - velocidadJugador);
+        naveJugador.style.top = coordenadaY + "px";
+    } else if (
+        // MOVER ABAJO DERECHA (S || ArrowDown) & (D || ArrowRight)
+        (teclasPulsadas.has(83) || teclasPulsadas.has(40)) &&
+        (teclasPulsadas.has(68) || teclasPulsadas.has(39))
+    ) {
+        coordenadaY = naveJugador.offsetTop;
+        coordenadaY = Math.min(
+            viewportHeight - naveJugador.offsetHeight,
+            coordenadaY + velocidadJugador
         );
-        // Le asigno la nueva "coordenada" Y
-        naveJugador.style.bottom = coordenadaY - velocidadJugador + "px";
-    }
-    if (e.key === "d" || e.key === "D" || e.key === "ArrowRight") {
-        coordenadaX = parseInt(getComputedStyle(naveJugador).left); // Obtengo el style.left de naveJugador
+        naveJugador.style.top = coordenadaY + "px";
+
+        coordenadaX = naveJugador.offsetLeft;
+        // En este caso le pongo naveJugador.offsetWidth/2 porque la nave se paraba antes de tocar el borde,
+        // concretamente se paraba el 50% del width de la nave antes
+        coordenadaX = Math.min(
+            viewportWidth - naveJugador.offsetWidth / 2,
+            coordenadaX + velocidadJugador
+        );
+        naveJugador.style.left = coordenadaX + "px";
+    } else if (
+        // MOVER ABAJO IZQUIERDA (S || ArrowDown) & (A || ArrowLeft)
+        (teclasPulsadas.has(83) || teclasPulsadas.has(40)) &&
+        (teclasPulsadas.has(65) || teclasPulsadas.has(37))
+    ) {
+        coordenadaY = naveJugador.offsetTop;
+        coordenadaY = Math.min(
+            viewportHeight - naveJugador.offsetHeight,
+            coordenadaY + velocidadJugador
+        );
+        naveJugador.style.top = coordenadaY + "px";
+
+        coordenadaX = naveJugador.offsetLeft;
+        // En este caso le pongo naveJugador.offsetWidth/2 porque se comía media nave al poner 0
         coordenadaX = Math.max(
-            0,
-            Math.min(coordenadaX, viewportWidth - naveJugador.width)
+            naveJugador.offsetWidth / 2,
+            coordenadaX - velocidadJugador
         );
-        // Le asigno la nueva "coordenada" X
-        naveJugador.style.left = coordenadaX + velocidadJugador + "px";
+        naveJugador.style.left = coordenadaX + "px";
+    } else if (teclasPulsadas.has(83) || teclasPulsadas.has(40)) {
+        coordenadaY = naveJugador.offsetTop;
+        coordenadaY = Math.min(
+            viewportHeight - naveJugador.offsetHeight,
+            coordenadaY + velocidadJugador
+        );
+        naveJugador.style.top = coordenadaY + "px";
+    } else if (teclasPulsadas.has(68) || teclasPulsadas.has(39)) {
+        // MOVER DERECHA (D || ArrowRight)
+        coordenadaX = naveJugador.offsetLeft;
+        // En este caso le pongo naveJugador.offsetWidth/2 porque la nave se paraba antes de tocar el borde,
+        // concretamente se paraba el 50% del width de la nave antes
+        coordenadaX = Math.min(
+            viewportWidth - naveJugador.offsetWidth / 2,
+            coordenadaX + velocidadJugador
+        );
+        naveJugador.style.left = coordenadaX + "px";
+    } else if (teclasPulsadas.has(65) || teclasPulsadas.has(37)) {
+        // MOVER IZQUIERDA (A || ArrowLeft)
+        coordenadaX = naveJugador.offsetLeft;
+        // En este caso le pongo naveJugador.offsetWidth/2 porque se comía media nave al poner 0
+        coordenadaX = Math.max(
+            naveJugador.offsetWidth / 2,
+            coordenadaX - velocidadJugador
+        );
+        naveJugador.style.left = coordenadaX + "px";
     }
 });
+// Eliminar tecla del mapa 'teclasPulsadas' al dejar de pulsarla
+document.addEventListener("keyup", (e) => {
+    teclasPulsadas.delete(e.keyCode);
+});
+
+/*
+Esta función reasignara la variable cada vez que la nave se mueva.
+En el caso de que se abra la consola de desarrollador al empezar, si no vuelvo a asignar los valores,
+el viewportHeight (en caso de tener la consola abajo), 
+sera el espacio entre la consola y la parte superior del document, y aunque se esconda de nuevo
+el tamaño seguirá siendo el que había con la consola abierta
+*/
+function comprobarPantalla() {
+    viewportWidth = document.body.clientWidth;
+    viewportHeight = document.body.clientHeight;
+}
+setInterval(comprobarPantalla, 2);
 
 //Definimos e iniciamos las variables necesarias
 var y = 0; // coordenada y inicial enemigos
@@ -185,48 +289,10 @@ function mover() {
         y = lienzo.offsetHeight - 120;
     }
 
-    /*
-    //movemos la imagen en el eje x e y asignando un valor en px
-    document.getElementById("imagen").style.left=String(x)+"px";
-    document.getElementById("imagen").style.top=String(y)+"px";
-    */
     // Bucle para mover las naves enemiga
     let navesEnemigas = document.getElementsByClassName("naveEnemiga");
     for (let i = 0; i < navesEnemigas.length; i++) {
         navesEnemigas[i].style.left = String(x) + "px";
         navesEnemigas[i].style.top = String(y) + "px";
-    }
-}
-
-// Funciones para poner/quitar pantalla completa
-function fullscreen() {
-    if (
-        document.fullScreenElement !== null || // método alternativo
-        (!document.mozFullScreen && !document.webkitIsFullScreen)
-    ) {
-        // métodos actuales
-        if (document.documentElement.requestFullScreen) {
-            document.documentElement.requestFullScreen();
-        }
-        if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-        }
-        if (document.documentElement.webkitRequestFullScreen) {
-            document.documentElement.webkitRequestFullScreen(
-                Element.ALLOW_KEYBOARD_INPUT
-            );
-        }
-    }
-}
-
-function exitFullscreen() {
-    if (document.cancelFullScreen) {
-        document.cancelFullScreen();
-    }
-    if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    }
-    if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
     }
 }
