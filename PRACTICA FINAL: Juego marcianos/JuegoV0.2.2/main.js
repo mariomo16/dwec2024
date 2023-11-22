@@ -4,12 +4,6 @@
     Autor: Mario Morales Ortega (1745008)
     Fecha de creación: 20 de noviembre de 2023
 
-
-    TODO:
-    - No obtiene bien el client.Width y hace que la nave se salga un poco, o no llegue a los margenes laterales
-      La parte izquierda se come media nave
-      La parte derecha termina media nave antes
-
     Fuente:
     - Obtener el viewport del cliente para poner limite al body y que las naves no se salgan de la pantalla
         https://stackoverflow.com/questions/16776764/move-div-with-javascript-inside-bodys-limits
@@ -236,26 +230,3 @@ function exitFullscreen() {
         document.webkitCancelFullScreen();
     }
 }
-
-/*
-function comprobarColision(
-    naveJugador,
-    coordenadaX,
-    coordenadaY,
-    navesEnemigas,
-    x,
-    y
-) {
-    for (let i = 0; i < navesEnemigas.length; i++) {
-        if (
-            coordenadaX < x + navesEnemigas[i].width &&
-            coordenadaX + naveJugador.width > x &&
-            coordenadaY < y + navesEnemigas[i].height &&
-            naveJugador.height + coordenadaY > y
-        ) {
-            return true;
-        }
-        return false;
-    }
-}
-*/
