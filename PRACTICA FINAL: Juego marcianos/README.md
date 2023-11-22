@@ -6,5 +6,5 @@
 ## v0.2.2
  - Corregido error que hacia que los margenes laterales no fueran correctos
  - Corregido un error, que al ejecutar con la ventana a un tamaño distinto al "normal" (ej: al ejecutar teniendo la consola de desarrollador abierta), el tamaño se quedaba guardado según el espacio libre entre la consola (por ejemplo), y el top del document
-## 
-## 
+## v0.2.3
+ - Ahora la nave se puede mover en diagonal
