@@ -1,5 +1,6 @@
 ## v0.1.0 Creación del juego
  - Aparece una ventana modal para mostrar un formulario al usuario
+   - Le pide al usuario elegir dificultad (que cambiara el número de enemigos), entre otras cosas
  - La nave enemiga se mueve rebotando contra los margenes de la pantalla
  - La nave del jugador se mueve (solamente arriba, derecha, izquierda, abajo)
    - La nave del jugador puede salirse de los limites de la pantalla
