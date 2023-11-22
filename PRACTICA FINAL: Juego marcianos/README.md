@@ -16,3 +16,4 @@
  - Ahora la nave se puede mover en diagonal
 ## v0.3.1
  - Agregado auto focus al campo nombre del formulario
+ - Centrado la nave del jugador para todas las resoluciones
