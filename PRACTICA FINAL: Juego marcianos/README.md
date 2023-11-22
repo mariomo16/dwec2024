@@ -12,5 +12,7 @@
  - Corregido error que hacia que los margenes laterales no fueran correctos
  - Corregido un error que hacia que al ejecutar el juego en una ventana con tamaño distinto al "normal", los margenes se quedarían con los definidos al principio aunque cambie el tamaño mas tarde
    - EJ: Al ejecutar con la consola de desarrollador abierta, los margenes serian EN TODO MOMENTO, el espacio entre la consola y el margen contrario
-## v0.2.3
+## v0.3.0
  - Ahora la nave se puede mover en diagonal
+## v0.3.1
+ - Agregado auto focus al campo nombre del formulario
