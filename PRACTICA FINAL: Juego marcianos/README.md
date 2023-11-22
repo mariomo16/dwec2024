@@ -17,3 +17,6 @@
 ## v0.3.1
  - Agregado auto focus al campo nombre del formulario
  - Centrado la nave del jugador para todas las resoluciones
+ - Optimizado creación de enemigos
+ - Creado Evento para crear misiles (tecla: 'space')
+   - Por ahora se quedan en la esquina de la pantalla sin moverse
