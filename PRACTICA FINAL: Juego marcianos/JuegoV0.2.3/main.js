@@ -103,48 +103,6 @@ document.getElementById("startGame").addEventListener("click", (e) => {
     }
 });
 
-// Antiguo evento para mover hacia arriba, derecha, izquierda, abajo
-// No se puede usar para mover en diagonal
-/*
-document.addEventListener("keydown", (e) => {
-    // MOVER ARRIBA
-    if (e.key === "w" || e.key === "W" || e.key === "ArrowUp") {
-        coordenadaY = naveJugador.offsetTop;
-        coordenadaY = Math.max(0, coordenadaY - velocidadJugador);
-        naveJugador.style.top = coordenadaY + "px";
-    }
-    // MOVER ABAJO
-    if (e.key === "s" || e.key === "S" || e.key === "ArrowDown") {
-        coordenadaY = naveJugador.offsetTop;
-        coordenadaY = Math.min(
-            viewportHeight - naveJugador.offsetHeight,
-            coordenadaY + velocidadJugador
-        );
-        naveJugador.style.top = coordenadaY + "px";
-    }
-    // MOVER IZQUIERDA
-    if (e.key === "a" || e.key === "A" || e.key === "ArrowLeft") {
-        coordenadaX = naveJugador.offsetLeft;
-        // En este caso le pongo naveJugador.offsetWidth/2 porque se comía media nave al poner 0
-        coordenadaX = Math.max(
-            naveJugador.offsetWidth / 2,
-            coordenadaX - velocidadJugador
-        );
-        naveJugador.style.left = coordenadaX + "px";
-    }
-    // MOVER DERECHA
-    if (e.key === "d" || e.key === "D" || e.key === "ArrowRight") {
-        coordenadaX = naveJugador.offsetLeft;
-        // En este caso le pongo naveJugador.offsetWidth/2 porque la nave se paraba antes de tocar el borde,
-        // concretamente se paraba el 50% del width de la nave antes
-        coordenadaX = Math.min(
-            viewportWidth - naveJugador.offsetWidth / 2,
-            coordenadaX + velocidadJugador
-        );
-        naveJugador.style.left = coordenadaX + "px";
-    }
-});
-*/
 // EVENTO PARA MOVER LA NAVE DEL JUGADOR
 document.addEventListener("keydown", (e) => {
     // Compruebo si la tecla pulsada esta dentro de 'teclasPulsadas', si no es asi, lo añado
@@ -356,26 +314,3 @@ function exitFullscreen() {
         document.webkitCancelFullScreen();
     }
 }
-
-/*
-function comprobarColision(
-    naveJugador,
-    coordenadaX,
-    coordenadaY,
-    navesEnemigas,
-    x,
-    y
-) {
-    for (let i = 0; i < navesEnemigas.length; i++) {
-        if (
-            coordenadaX < x + navesEnemigas[i].width &&
-            coordenadaX + naveJugador.width > x &&
-            coordenadaY < y + navesEnemigas[i].height &&
-            naveJugador.height + coordenadaY > y
-        ) {
-            return true;
-        }
-        return false;
-    }
-}
-*/
