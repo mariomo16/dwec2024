@@ -4,7 +4,7 @@
  - La nave enemiga se mueve rebotando contra los margenes de la pantalla
  - La nave del jugador se mueve (solamente arriba, derecha, izquierda, abajo)
    - La nave del jugador puede salirse de los limites de la pantalla
-## v0.1.2 
+## v0.1.2
  - Al mover la nave ahora comprueba los margenes de la pantalla para no salirse
    - Corregido error que hacia que los margenes no fueran correctos
      - Corregido error que hacia que los margenes laterales no fueran correctos
