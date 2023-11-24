@@ -15,7 +15,7 @@
     24 de noviembre de 2023
     ---------------------------------------
     Versión: 
-    0.4.0
+    0.4.0-beta
     ---------------------------------------
     Notas de la Versión: 
     - Optimizaciones de código:
