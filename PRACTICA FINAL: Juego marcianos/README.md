@@ -25,7 +25,7 @@
    - Corregido error que hacia que los margenes no fueran correctos
      - Corregido error que hacia que los margenes laterales no fueran correctos
    - Corregido un error con los margenes si se ejecuta con la consola de desarrollador abierta
-## v0.1.0 Creación del juego
+## v0.1.0
  - Aparece una ventana modal para mostrar un formulario al usuario
    - Le pide al usuario elegir dificultad (que cambiara el número de enemigos), entre otras cosas
  - La nave enemiga se mueve rebotando contra los margenes de la pantalla
