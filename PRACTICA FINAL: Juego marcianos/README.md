@@ -1,4 +1,4 @@
- ## v0.5.0-beta
+ ### v0.5.0-beta
  - Los misiles destruyen las naves enemigas
  - Cuando no queden mas enemigos, saldrá una ventana para felicitar por la victoria
  - Cambiado evento para disparar "keydown" -> "keyup" para que no se pueda mantener presionado
