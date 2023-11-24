@@ -30,11 +30,6 @@
     - Al colisionar con un enemigo, se terminara la partida (Se eliminaran los eventos, y se mostrara una ventana con información)
     - Los misiles se eliminaran al desaparecer de la pantalla, en vez de al tocar el borde superior
 
-    TODOs:
-    *- Comprobar colisiones de los misiles con los enemigos
-    *- Hacer que los misiles aparezcan un poco mas arriba de la nave, y CENTRADOS
-    - Si borras el nombre después de haberlo introducido, que se vuelva a deshabilitar el botón
-
     !Avisos:
     - Al pulsar EXTREMADAMENTE rápido A y D, la nave solamente se mueve hacia la derecha (No ocurre con las flechas)
         Al ser la A (izquierda) el ultimo 'if', si pulsas rápido, no llega a hacer esa comprobación

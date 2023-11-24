@@ -22,3 +22,12 @@
  - Ahora cada enemigo tiene su propia coordenada (BUG?)
  - Ahora cada misil tiene su propia coordenada y se mueve hacia arriba (al tocar el limite, se borran del DOM)
  - Ahora la nave no se podrá mover, ni se podrá lanzar misiles antes de empezar la partida
+ ## v0.4.0
+ - Optimizaciones de código (mas información dentro de main.js)
+ - Sustituido métodos evento.keyCode (deprecado) por evento.key
+ - Los enemigos ya no comparten las variables controlX/Y, y ahora tienen movimientos COMPLETAMENTE independientes.
+   - Para que no tengan el mismo recorrido durante toda la duración del juego, al crear cada enemigo, se le asigna una velocidad entre 6 y 10
+ - Ahora se detectan las colisiones entre el jugador y cualquier enemigo
+   - Si el jugador no se mueve hacia abajo/arriba al menos 1 vez, no se detectara su colisión en ningún momento.
+ - Al colisionar con un enemigo, se terminara la partida (Se eliminaran los eventos, y se mostrara una ventana con información)
+ - Los misiles se eliminaran al desaparecer de la pantalla, en vez de al tocar el borde superior
