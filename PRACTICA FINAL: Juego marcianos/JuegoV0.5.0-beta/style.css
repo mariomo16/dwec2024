@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(./images/Backgrounds/black.png) repeat;
+    background: url(./images/Backgrounds/blue.png) repeat;
     overflow: hidden;
     /* Para poder mover correctamente a los enemigos */
     height: 100vh;
@@ -18,7 +18,6 @@ body {
 #naveJugador {
     position: fixed;
     bottom: 30px;
-    /* transform: translateX(0%); */
     width: 120px;
 }
 .misiles {
@@ -43,7 +42,7 @@ dialog {
     text-align: center;
     color: white;
     background-color: rgb(19, 19, 19);
-    border-radius: 10px;
+    border-radius: 5px;
     border: solid 1px grey;
     position: absolute;
     top: 2%;
@@ -69,4 +68,17 @@ input {
 }
 #hard {
     color: red;
+}
+
+.izquierda {
+    float: left;
+}
+.derecha {
+    float: right;
+}
+
+#version {
+    color: greenyellow;
+    float: left;
+    font-size: x-small;
 }
