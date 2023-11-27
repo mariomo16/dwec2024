@@ -1,7 +1,15 @@
- ### v0.5.0-beta
- - Los misiles destruyen las naves enemigas
- - Cuando no queden mas enemigos, saldrá una ventana para felicitar por la victoria
- - Cambiado evento para disparar "keydown" -> "keyup" para que no se pueda mantener presionado
+ ## v0.6.3
+ - Los misiles destruirán la nave enemiga que impacten
+ - Al eliminar a todos los enemigos, o al morir, saldrá una ventana con información
+ - Cambiado evento de disparar "keydown" -> "keyup" para evitar que se mantenga la pulsación y que no deje de disparar
+ - Los misiles desaparecerán al destruir la nave enemiga
+ - El movimiento de la nave ahora es fluido
+   - Corregido el error al pulsar rápidamente "A" y "D" (la nave solamente se movía a la izquierda)
+   - Corregido el error que no permitía moverse sin volver a pulsar la tecla después de disparar un misil
+ - Ya no se podrá mover la nave al terminar la partida
+ - Corregido el fallo de colisiones si el jugador no se movía al principio
+ - Centrado la posición iniciar del misil al lanzarlo
+ - El juego iniciara en pantalla completa, y se quitara automáticamente al terminar
  ## v0.4.0
  - Optimizaciones de código (mas información dentro de main.js)
  - Sustituido métodos evento.keyCode (deprecado) por evento.key
