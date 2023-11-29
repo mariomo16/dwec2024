@@ -1,4 +1,17 @@
- ## v0.6.3
+## v0.8.1 (Nueva nave, misiles, y jugador)
+ - La explosion de las naves enemigas se eliminara de la pantalla después de 1 segundo
+ - Ahora el audio del laser se reproducirá cada vez que se lance, sin esperar a que termine el (audio) anterior
+ - Se reproducirá un sonido al impactar una nave enemiga (explosion)
+ - Corregido posición inicial misiles
+ - La nave ahora muestra un fuego propulsor al moverse
+## v0.7.4
+ - Ahora se reproduce un audio al lanzar un misil, y al perder la partida
+ - Al colisionar con un enemigo, se reemplazara la img del jugador por una explosion (gif)
+ - Corregido diferencia de velocidad (jugador, misiles, enemigos) dependiendo del navegador
+ - Corregido error que hacia que al moverse manteniendo el espacio a la vez, se disparasen misiles
+ - Agregado una opción (para que el usuario pueda elegir) para activar pantalla completa ("F11" desactivado)
+ - Las naves enemigas explotaran (gif) al impactarles un misil
+## v0.6.3
  - Los misiles destruirán la nave enemiga que impacten
  - Al eliminar a todos los enemigos, o al morir, saldrá una ventana con información
  - Cambiado evento de disparar "keydown" -> "keyup" para evitar que se mantenga la pulsación y que no deje de disparar
@@ -10,7 +23,7 @@
  - Corregido el fallo de colisiones si el jugador no se movía al principio
  - Centrado la posición iniciar del misil al lanzarlo
  - El juego iniciara en pantalla completa, y se quitara automáticamente al terminar
- ## v0.4.0
+## v0.4.0
  - Optimizaciones de código (mas información dentro de main.js)
  - Sustituido métodos evento.keyCode (deprecado) por evento.key
  - Los enemigos ya no comparten las variables controlX/Y, y ahora tienen movimientos COMPLETAMENTE independientes.
@@ -19,7 +32,7 @@
    - Si el jugador no se mueve hacia abajo/arriba al menos 1 vez, no se detectara su colisión en ningún momento.
  - Al colisionar con un enemigo, se terminara la partida (Se eliminaran los eventos, y se mostrara una ventana con información)
  - Los misiles se eliminaran al desaparecer de la pantalla, en vez de al tocar el borde superior
- ## v0.3.0
+## v0.3.0
  - Optimización de código
  - Ahora cada enemigo tiene su propia coordenada (BUG?)
  - Ahora cada misil tiene su propia coordenada y se mueve hacia arriba (al tocar el limite, se borran del DOM)
