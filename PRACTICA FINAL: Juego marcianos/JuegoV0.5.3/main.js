@@ -15,7 +15,7 @@
     27 de noviembre de 2023
     ---------------------------------------
     Versión: 
-    0.6.3
+    0.5.3
     ---------------------------------------
     Notas de la Versión: 
     - Los misiles destruirán la nave enemiga que impacten

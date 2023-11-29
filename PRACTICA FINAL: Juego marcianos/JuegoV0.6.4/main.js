@@ -15,7 +15,7 @@
     29 de noviembre de 2023
     ---------------------------------------
     Versión: 
-    en desarrollo 0.7.4
+    0.6.4
     ---------------------------------------
     Notas de la Versión: 
     - Se reproducirá un audio al lanzar un misil, y al perder la partida

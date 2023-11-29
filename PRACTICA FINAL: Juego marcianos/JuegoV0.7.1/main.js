@@ -15,7 +15,7 @@
     29 de noviembre de 2023
     ---------------------------------------
     Versión: 
-    en desarrollo 0.8.1
+    0.7.1
     ---------------------------------------
     Notas de la Versión: 
     - Las naves explotadas no se quedaran en pantalla con la animación
