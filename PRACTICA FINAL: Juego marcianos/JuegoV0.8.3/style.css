@@ -55,15 +55,15 @@ dialog {
     text-align: center;
     color: white;
     background: #0e1111;
-    /*background-color: rgb(19, 19, 19);*/
     border-radius: 5px;
     border: solid 1px grey;
     position: absolute;
-    top: 2%;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 }
 
 .sub {
-    text-decoration: underline 2px rgb(57, 81, 189);
+    text-decoration: underline 2px #429DE5;
 }
 
 input {
@@ -116,4 +116,8 @@ input {
 
 .puntuacionFinal {
     color: cyan;
+}
+
+#info {
+    color: red;
 }
