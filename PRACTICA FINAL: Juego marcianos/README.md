@@ -1,3 +1,8 @@
+## v0.8.7
+ - Corregido errores sin importancia
+ - Corregido error que permitía pausar después de haber terminado la partida
+ - El contador para la duración de la partida ahora empieza a contar cuando empieza la partida, y no al cargar
+ - Corregido error que no permitía moverse hacia arriba derecha
 ## v0.8.3 (Menú de pausa y opción Volver a jugar)
  - Optimizaciones de código
  - Corregido error que hacia que no se removiese el propulsor al perder la partida
