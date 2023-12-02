@@ -27,4 +27,4 @@
  - Agregado una opción (para que el usuario pueda elegir) para activar pantalla completa ("F11" desactivado)
  - Las naves enemigas explotaran (gif) al impactarles un misil
 
-# Otras versiones en oldReleases
+# Otras versiones en 'old'
