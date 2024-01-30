@@ -1,0 +1,71 @@
+/* Fuente y ajustes del Body */
+* {
+    font-family: "Fira Code", monospace;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: url(./images/Backgrounds/black.png) repeat;
+    overflow: hidden;
+    /* Para poder mover correctamente a los enemigos */
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/* CSS Naves */
+#naveJugador {
+    position: fixed;
+    bottom: 30px;
+    /* transform: translateX(0%); */
+    width: 120px;
+}
+.misiles {
+    position: absolute;
+}
+
+#lienzo {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.naveEnemiga {
+    width: 120px;
+    position: fixed;
+    display: block;
+}
+
+/* CSS Ventana modal*/
+dialog {
+    z-index: 1;
+    text-align: center;
+    color: white;
+    background-color: rgb(19, 19, 19);
+    border-radius: 10px;
+    border: solid 1px grey;
+    position: absolute;
+    top: 2%;
+}
+
+.sub {
+    text-decoration: underline 2px rgb(57, 81, 189);
+}
+
+input {
+    margin-bottom: 20px;
+    border-radius: 1px;
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+#easy {
+    color: rgb(71, 255, 47);
+}
+#normal {
+    color: yellow;
+}
+#hard {
+    color: red;
+}
