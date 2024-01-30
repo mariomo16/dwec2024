@@ -3,7 +3,7 @@
     Nombre del Script: main.js
     ---------------------------------------
     Descripción: 
-    Juego web de destruir naves enemigas.
+    Juego web de destruir naves enemigas
     ---------------------------------------
     Autor: 
     Mario Morales Ortega (1745008) 
@@ -12,37 +12,44 @@
     20 de noviembre de 2023
     ---------------------------------------
     Última Modificación: 
-    30 de noviembre de 2023
+    12 de diciembre de 2023
     ---------------------------------------
     Versión: 
-    0.8.3
+    0.9.1
     ---------------------------------------
-    Notas de la Versión: 
-    - Optimizaciones de código
-    - Corregido error que hacia que no se removiese el propulsor al perder la partida
-    - Corregido error con la velocidad aleatoria
-    - Ahora al terminar la partida, los enemigos/misiles/jugador se ralentizaran en vez de detenerse
-    - Ahora se puede pausar la partida (P)
-    - Agregado menú de pausa
-    - Ahora esta la opción de volver a jugar
-    - Quitado autofocus de la ventana modal para que no haya comportamientos indeseados
+    Notas de la Versión:
+    - Las naves ahora tienen un movimiento inicial aleatorio
+    - Cambiado velocidad de las naves enemigas en Google Chrome
+    - Otros cambios leves
+
+
+    Al terminar la partida, en vez de hacer que todo deje de moverse, he preferido bajar la velocidad del jugador, misiles, y en caso de perder,
+    la velocidad de los enemigos para que parezca que va a cámara lenta
+
+
+    Observaciones:
+    - Si el juego se pausa nada mas empezar, los enemigos se seguirán generando uno encima de otro
+    - Si el jugador pulsa CapsLock mientras se mueve, esa tecla nunca se salia del Mapa y no se podría volver a mover, 
+        o no pararía de moverse hacia ese lado hasta que vuelva a pulsar CapsLock y la tecla que estaba pulsando antes
+    - Al perder, si la nave enemiga colisiona con el jugador cerca del borde inferior, al quitar la pantalla completa (automáticamente)
+        esa nave enemiga (o las que estén cerca del borde en ese momento) se quedaran pilladas y no se moverán de la parte inferior
     
-    Fuentes (ctrl + click):
+    Fuentes (ctrl + click para abrir enlace):
     - Obtener el viewport del cliente para poner limite al body y que las naves no se salgan de la pantalla
         https://stackoverflow.com/questions/16776764/move-div-with-javascript-inside-bodys-limits
         // http://andylangton.co.uk/blog/development/get-viewport-size-width-and-height-javascript
         - Enlace caído
 
-    - Iterar 2 "Arrays" (NodeList) para hacer la comprobación de impacto de misiles
+    - Iterar 2 NodeList para hacer la comprobación de impacto de misiles
         https://stackoverflow.com/questions/40095117/looping-over-two-arrays-with-different-length-and-correctly-sorting-the-output
     
-    - Que información sale en cada navegador con navigator.userAgent
+    - Distinguir el navegador usando navigator.userAgent
         https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
 
     - Reproducir audio SIN ESPERAR A QUE TERMINE EL MISMO AUDIO ANTERIOR
         https://stackoverflow.com/questions/66989726/audio-play-without-waiting-for-previous-sound-to-end
 
-    - Método reload (Simplemente busque reload js, por eso lo uso)
+    - Método reload (Simplemente busqué reload js, y es lo que encontré para "volver a jugar" aunque solamente refresca la página)
         https://developer.mozilla.org/en-US/docs/Web/API/Location/reload
 
     - Quitar el autofocus de la ventana modal
@@ -54,6 +61,8 @@
 
 // Variable para pausar el juego
 let pausa = false;
+// Variable para que no se pueda pausar al terminar la partida
+let partida = true;
 
 // Variables para crear elementos HTML
 const ventanaModal = document.createElement("dialog"); // Ventana modal
@@ -81,35 +90,34 @@ let dificultad; // Dificultad elegida por el jugador
 let puntuacionEnemigo; // Puntos que dará cada enemigo según la dificultad
 let puntuacion = 0; // Puntuación del jugador
 let duracionPartida = 0; // Duración de la partida
-
 let coordenadaX = naveJugador.offsetLeft; // Ajuste horizontal del jugador
 let coordenadaY = naveJugador.offsetTop; // Ajuste vertical del jugador
 let velocidadJugador; // Pixeles que se moverá la nave del jugador
 let velocidadMisiles; // Velocidad de los misiles
 
 let numeroEnemigos;
+
 /*
     La velocidad (pixeles) varia entre algunos navegadores (Chrome y Firefox que yo haya comprobado)
-    Así que necesito cambiar la velocidad dependiendo de que navegador se esta utilizando
+    Así que necesito cambiar la velocidad dependiendo de que navegador se este utilizando
 */
-let randomSpeed; // Velocidad según el navegador
+let browserSpeed; // Velocidad según el navegador
 if (navigator.userAgent.includes("Chrome")) {
 	velocidadJugador = 5;
 	velocidadMisiles = 8;
-	randomSpeed = 1.6;
+	browserSpeed = 4;
 } else if (navigator.userAgent.includes("Firefox")) {
-	velocidadJugador = 5;
-	velocidadMisiles = 10;
-	randomSpeed = 2.5;
+	velocidadJugador = 15;
+	velocidadMisiles = 20;
+	browserSpeed = 12;
 }
 
 // Intervals
-let intervalMover = setInterval(mover, 2); // Mover naves enemigas .2seg
+let intervalMover = setInterval(mover, 8); // Mover naves enemigas .2seg
+let intervalMoverMisiles = setInterval(moverMisiles, 2); // Mover naves enemigas .2seg
 let intervalColisiones = setInterval(comprobarColision, 2); // Comprobar colisiones enemigos/misiles cada .2seg
 let intervalJugador = setInterval(moverJugador, 5); // Movimiento fluido del jugador 0.5seg -Eloy
-const intervalDuracion = setInterval(() => {
-	duracionPartida++;
-}, 1000); // Contador para saber cuanto dura la partida
+let intervalDuracion; // Contador para saber cuanto dura la partida
 
 /*
     Bloqueo el comportamiento de las teclas 'Enter' y 'F11'
@@ -147,13 +155,14 @@ ventanaModal.innerHTML = `
         <label for="guardarPuntuacion">Guardar puntuación</label>
         <input type="checkbox" id="guardarPuntuacion" />
         <br />
+        <input type="button" id="leaderboard" value="Ver puntuaciones" disabled/>
         <input type="button" id="startGame" value="Empezar partida"/>
     </form>
-    <h2 id="info">¡INFORMACION!</h2>
-    <p>
-        Mover la nave: W-A-S-D | Flechas del teclado<br />
-        Disparar: Espacio<br />
-        Pausar/Reanudar: P
+    <h2 id="info">CONTROLES</h2>
+    <p class="infoIzq">
+        Mover nave jugador: W-A-S-D | Flechas del teclado<br />
+        Disparar misiles: Espacio<br />
+        Pausar/Reanudar : P
     </p>
 `;
 document.body.appendChild(ventanaModal); // Añado la ventana modal al body
@@ -165,12 +174,13 @@ let nombreJugador = document.getElementById("nombre"); // Puntero al input nombr
 const botonEmpezar = document.getElementById("startGame"); // Botón para empezar la partida
 /*
     Si el jugador no quiere guardar su puntuación, podrá empezar la partida sin introducir nombre,
-    en el caso contrario, necesitara introducir un nombre para poder guardar la puntuación
+    en el caso contrario, necesitara introducir un nombre para poder empezar la partida
 */
 document.getElementById("guardarPuntuacion").addEventListener("change", () => {
 	if (document.getElementById("guardarPuntuacion").checked) {
 		nombreJugador.removeAttribute("disabled");
 		botonEmpezar.setAttribute("disabled", "true");
+		nombreJugador.focus();
 	} else {
 		nombreJugador.value = "";
 		nombreJugador.setAttribute("disabled", "true");
@@ -180,7 +190,6 @@ document.getElementById("guardarPuntuacion").addEventListener("change", () => {
 nombreJugador.addEventListener("change", () => {
 	if (nombreJugador === "") {
 		botonEmpezar.setAttribute("disabled", "true");
-		nombreJugador.focus();
 	} else {
 		botonEmpezar.removeAttribute("disabled");
 	}
@@ -188,7 +197,10 @@ nombreJugador.addEventListener("change", () => {
 
 /* ---- EMPEZAR EL JUEGO ---------- */
 botonEmpezar.addEventListener("click", () => {
-	fullScreenMode();
+	intervalDuracion = setInterval(() => {
+		duracionPartida++;
+	}, 1000);
+	fullScreenOn();
 	// Recojo el nombre del jugador, si no ha introducido nada, sera 'Jugador 1'
 	nombreJugador = document.getElementById("nombre").value;
 	if (nombreJugador === "") {
@@ -244,26 +256,27 @@ function crearEnemigos() {
 			// Dentro del array creado al principio, añado un objeto con las propiedades 'X' e Y'
 			// para que cada enemigo tenga coordenadas independientes
 			coordenadasEnemigos.push({
-				x: 0,
-				y: 0,
-				controlY: 1,
-				controlX: 1,
-				velocidad: (Math.random() + randomSpeed) * 1.7,
+				x: 0, // Coordenada X
+				y: 0, // Coordenada Y
+				dx: Math.random() > 0.5 ? 1 : -1, // Dirección aleatoria en X
+				dy: Math.random() > 0.5 ? 1 : -1, // Dirección aleatoria en Y
+				velocidadX: Math.random() * browserSpeed + 1, // Velocidad aleatoria en X
+				velocidadY: Math.random() * browserSpeed + 1, // Velocidad aleatoria en Y
 			});
 		}, 300 * i);
 	}
 }
-
 function comprobarEstado(e) {
-	if (e.key === "p" && pausa === false) {
+	if (e.key === "p" && pausa === false && partida === true) {
 		pausarPartida();
-	} else if (e.key === "p" && pausa === true) {
+	} else if (e.key === "p" && pausa === true && partida === true) {
 		reanudarPartida();
 	}
 }
 
 function reanudarPartida() {
-	intervalMover = setInterval(mover, 2); // Mover naves enemigas .2seg
+	intervalMover = setInterval(mover, 8); // Mover naves enemigas .2seg
+	intervalMoverMisiles = setInterval(moverMisiles, 2); // Mover naves enemigas .2seg
 	intervalColisiones = setInterval(comprobarColision, 2); // Comprobar colisiones enemigos/misiles cada .2seg
 	intervalJugador = setInterval(moverJugador, 5); // Movimiento fluido del jugador 0.5seg -Eloy
 	pausa = false;
@@ -272,6 +285,7 @@ function reanudarPartida() {
 
 function pausarPartida() {
 	clearInterval(intervalMover);
+	clearInterval(intervalMoverMisiles);
 	clearInterval(intervalColisiones);
 	clearInterval(intervalJugador);
 	pausa = true;
@@ -284,11 +298,17 @@ function moverJugador() {
 	/*
     Cada 'if' comprueba si la nueva posición choca con el borde, si es asi, dejaría el valor en 0 (para dejarlo en el borde)
     o en el caso de que sea derecha/abajo, dejaría el valor en el Height/Width de la ventana
+
+    Hay que comprobar Mayúsculas y minúsculas, o la nave no se moverá si CapsLock esta activado
     */
 	if (
 		// MOVER ARRIBA DERECHA (W || ArrowUp) & (D || ArrowRight)
-		(teclasPulsadas.has("w") || teclasPulsadas.has("ArrowUp")) &&
-		(teclasPulsadas.has("d") || teclasPulsadas.has("ArrowRight"))
+		(teclasPulsadas.has("w") ||
+			teclasPulsadas.has("W") ||
+			teclasPulsadas.has("ArrowUp")) &&
+		(teclasPulsadas.has("d") ||
+			teclasPulsadas.has("D") ||
+			teclasPulsadas.has("ArrowRight"))
 	) {
 		// EJEMPLO
 		//Obtengo la coordenadaY del jugador
@@ -306,8 +326,12 @@ function moverJugador() {
 		naveJugador.style.left = `${coordenadaX}px`;
 	} else if (
 		// MOVER ARRIBA IZQUIERDA (W || ArrowUp) & (A || ArrowLeft)
-		(teclasPulsadas.has("w") || teclasPulsadas.has("ArrowUp")) &&
-		(teclasPulsadas.has("a") || teclasPulsadas.has("ArrowLeft"))
+		(teclasPulsadas.has("w") ||
+			teclasPulsadas.has("W") ||
+			teclasPulsadas.has("ArrowUp")) &&
+		(teclasPulsadas.has("a") ||
+			teclasPulsadas.has("A") ||
+			teclasPulsadas.has("ArrowLeft"))
 	) {
 		coordenadaY = naveJugador.offsetTop;
 		coordenadaY = Math.max(0, coordenadaY - velocidadJugador);
@@ -316,15 +340,23 @@ function moverJugador() {
 		coordenadaX = naveJugador.offsetLeft;
 		coordenadaX = Math.max(0, coordenadaX - velocidadJugador);
 		naveJugador.style.left = `${coordenadaX}px`;
-	} else if (teclasPulsadas.has("w") || teclasPulsadas.has("ArrowUp")) {
+	} else if (
+		teclasPulsadas.has("w") ||
+		teclasPulsadas.has("W") ||
+		teclasPulsadas.has("ArrowUp")
+	) {
 		// MOVER ARRIBA (W || ArrowUp)
 		coordenadaY = naveJugador.offsetTop;
 		coordenadaY = Math.max(0, coordenadaY - velocidadJugador);
 		naveJugador.style.top = `${coordenadaY}px`;
 	} else if (
 		// MOVER ABAJO DERECHA (S || ArrowDown) & (D || ArrowRight)
-		(teclasPulsadas.has("s") || teclasPulsadas.has("ArrowDown")) &&
-		(teclasPulsadas.has("d") || teclasPulsadas.has("ArrowRight"))
+		(teclasPulsadas.has("s") ||
+			teclasPulsadas.has("S") ||
+			teclasPulsadas.has("ArrowDown")) &&
+		(teclasPulsadas.has("d") ||
+			teclasPulsadas.has("D") ||
+			teclasPulsadas.has("ArrowRight"))
 	) {
 		coordenadaY = naveJugador.offsetTop;
 		coordenadaY = Math.min(
@@ -341,8 +373,12 @@ function moverJugador() {
 		naveJugador.style.left = `${coordenadaX}px`;
 	} else if (
 		// MOVER ABAJO IZQUIERDA (S || ArrowDown) & (A || ArrowLeft)
-		(teclasPulsadas.has("s") || teclasPulsadas.has("ArrowDown")) &&
-		(teclasPulsadas.has("a") || teclasPulsadas.has("ArrowLeft"))
+		(teclasPulsadas.has("s") ||
+			teclasPulsadas.has("S") ||
+			teclasPulsadas.has("ArrowDown")) &&
+		(teclasPulsadas.has("a") ||
+			teclasPulsadas.has("A") ||
+			teclasPulsadas.has("ArrowLeft"))
 	) {
 		coordenadaY = naveJugador.offsetTop;
 		coordenadaY = Math.min(
@@ -354,7 +390,11 @@ function moverJugador() {
 		coordenadaX = naveJugador.offsetLeft;
 		coordenadaX = Math.max(0, coordenadaX - velocidadJugador);
 		naveJugador.style.left = `${coordenadaX}px`;
-	} else if (teclasPulsadas.has("s") || teclasPulsadas.has("ArrowDown")) {
+	} else if (
+		teclasPulsadas.has("s") ||
+		teclasPulsadas.has("S") ||
+		teclasPulsadas.has("ArrowDown")
+	) {
 		// MOVER ABAJO (S || ArrowDown)
 		coordenadaY = naveJugador.offsetTop;
 		coordenadaY = Math.min(
@@ -362,7 +402,11 @@ function moverJugador() {
 			coordenadaY + velocidadJugador,
 		);
 		naveJugador.style.top = `${coordenadaY}px`;
-	} else if (teclasPulsadas.has("d") || teclasPulsadas.has("ArrowRight")) {
+	} else if (
+		teclasPulsadas.has("d") ||
+		teclasPulsadas.has("D") ||
+		teclasPulsadas.has("ArrowRight")
+	) {
 		// MOVER DERECHA (D || ArrowRight)
 		coordenadaX = naveJugador.offsetLeft;
 		coordenadaX = Math.min(
@@ -370,7 +414,11 @@ function moverJugador() {
 			coordenadaX + velocidadJugador,
 		);
 		naveJugador.style.left = `${coordenadaX}px`;
-	} else if (teclasPulsadas.has("a") || teclasPulsadas.has("ArrowLeft")) {
+	} else if (
+		teclasPulsadas.has("a") ||
+		teclasPulsadas.has("A") ||
+		teclasPulsadas.has("ArrowLeft")
+	) {
 		// MOVER IZQUIERDA (A || ArrowLeft)
 		coordenadaX = naveJugador.offsetLeft;
 		coordenadaX = Math.max(0, coordenadaX - velocidadJugador);
@@ -379,9 +427,13 @@ function moverJugador() {
 
 	if (
 		teclasPulsadas.has("a") ||
+		teclasPulsadas.has("A") ||
 		teclasPulsadas.has("w") ||
+		teclasPulsadas.has("W") ||
 		teclasPulsadas.has("s") ||
+		teclasPulsadas.has("S") ||
 		teclasPulsadas.has("d") ||
+		teclasPulsadas.has("D") ||
 		teclasPulsadas.has("ArrowLeft") ||
 		teclasPulsadas.has("ArrowUp") ||
 		teclasPulsadas.has("ArrowRight") ||
@@ -426,52 +478,39 @@ function dispararMisiles(e) {
 	}
 }
 
-//la función que moverá todos los enemigos y misiles existentes
+// Función que moverá todos los enemigos
 function mover() {
 	// Bucle para comprobar y mover la posición de los enemigos y ver si chocan (o no) con el borde
 	for (let i = 0; i < navesEnemigas.length; i++) {
-		//Eje de las X
-		if (coordenadasEnemigos[i].controlX === 1) {
-			coordenadasEnemigos[i].x += coordenadasEnemigos[i].velocidad;
-		} else {
-			coordenadasEnemigos[i].x -= coordenadasEnemigos[i].velocidad;
-		}
-		if (coordenadasEnemigos[i].x <= 0) {
-			coordenadasEnemigos[i].controlX = 1;
-			coordenadasEnemigos[i].x = 0;
-		} else if (
-			coordenadasEnemigos[i].x >=
-			lienzo.offsetWidth - navesEnemigas[i].offsetWidth
+		// Obtener las coordenadas actuales de la nave enemiga
+		const coordenadas = coordenadasEnemigos[i];
+
+		// Actualizar la posición X e Y basándose en la velocidad y dirección
+		coordenadas.x += coordenadas.velocidadX * coordenadas.dx;
+		coordenadas.y += coordenadas.velocidadY * coordenadas.dy;
+
+		// Revisar los límites del área de juego y cambiar la dirección si es necesario
+		if (
+			coordenadas.x < 0 ||
+			coordenadas.x > lienzo.offsetWidth - navesEnemigas[i].offsetWidth
 		) {
-			// Esto significa que si es mayor o igual a el ancho que tiene el lienzo menos el tamaño de la imagen se le da un nuevo valor a x
-			coordenadasEnemigos[i].controlX = 0;
-			coordenadasEnemigos[i].x =
-				lienzo.offsetWidth - navesEnemigas[i].offsetWidth;
+			coordenadas.dx *= -1; // Invierte la dirección en el eje X
 		}
-		//Eje de las Y
-		if (coordenadasEnemigos[i].controlY === 1) {
-			coordenadasEnemigos[i].y += coordenadasEnemigos[i].velocidad;
-		} else {
-			coordenadasEnemigos[i].y -= coordenadasEnemigos[i].velocidad;
-		}
-		if (coordenadasEnemigos[i].y <= 0) {
-			coordenadasEnemigos[i].controlY = 1;
-			coordenadasEnemigos[i].y = 0;
-		} else if (
-			coordenadasEnemigos[i].y >=
-			lienzo.offsetHeight - navesEnemigas[i].offsetHeight
+		if (
+			coordenadas.y < 0 ||
+			coordenadas.y > lienzo.offsetHeight - navesEnemigas[i].offsetHeight
 		) {
-			// Esto significa que si es mayor o igual a la altura que tiene el lienzo menos el tamaño de la imagen se le dará un nuevo valor a y
-			coordenadasEnemigos[i].controlY = 0;
-			coordenadasEnemigos[i].y =
-				lienzo.offsetHeight - navesEnemigas[i].offsetHeight;
+			coordenadas.dy *= -1; // Invierte la dirección en el eje Y
 		}
 
-		// Asigno nuevas coordenadas a los enemigos
-		navesEnemigas[i].style.left = `${String(coordenadasEnemigos[i].x)}px`;
-		navesEnemigas[i].style.top = `${String(coordenadasEnemigos[i].y)}px`;
+		// Aplicar las nuevas coordenadas a la nave enemiga
+		navesEnemigas[i].style.left = `${coordenadas.x}px`;
+		navesEnemigas[i].style.top = `${coordenadas.y}px`;
 	}
+}
 
+// Función que moverá todos los misiles
+function moverMisiles() {
 	// Bucle que comprobara la 'coordenada Y' de los misiles existentes y los moverá o eliminara
 	for (let i = 0; i < misiles.length; i++) {
 		// Le doy una nueva coordenada al misil
@@ -544,11 +583,14 @@ function comprobarPartida() {
 }
 // Función para eliminar los intervals y mostrar una ventana con información al ganar
 function partidaGanada() {
+	// Uso esto para que no se pueda pausar al terminar la partida
+	partida = false;
+	fullScreenOff(); // Quito la pantalla completa
 	clearInterval(intervalColisiones); // Parar el interval que comprueba colisiones
 	clearInterval(intervalDuracion); // Cancelo el interval que aumenta la duración de la partida
 	ventanaModal.innerHTML = `
 
-        <h1>Juego Marcianos</h1>
+        <h1>¡VICTORIA!</h1>
         <p>
             ¡Enhorabuena!, <span class="sub">has destruido a todos los enemigos</span>, ${nombreJugador}<br />
             <span class="izquierda">Has obtenido <span class="puntuacionFinal">[${puntuacion}]</span> puntos en modo <span class="puntuacionFinal">[${dificultad}]</span>.</span>
@@ -569,7 +611,9 @@ function partidaGanada() {
 }
 // Función para eliminar los intervals y mostrar una ventana con información al perder
 function partidaPerdida() {
-	fullScreenMode(); // Quito la pantalla completa
+	// Uso esto para que no se pueda pausar al terminar la partida
+	partida = false;
+	fullScreenOff(); // Quito la pantalla completa
 	document.removeEventListener("keyup", dispararMisiles); // Remuevo el evento para disparar misiles
 	clearInterval(intervalJugador); // Cancelo el interval que mueve al jugador
 	clearInterval(intervalColisiones); // Cancelo el interval que comprueba las colisiones
@@ -578,7 +622,7 @@ function partidaPerdida() {
 	const audioPerder = new Audio("./sounds/sfx_lose.ogg").play(); // Reproduzco un audio
 	// Cambio el código HTML de la ventana modal
 	ventanaModal.innerHTML = `
-        <h1>Juego Marcianos</h1>
+        <h1>DERROTA...</h1>
         <p>
             ¡Han destruido tu nave!, <span class="sub">intenta tener mas cuidado la proxima vez</span>, ${nombreJugador}.<br />
             <span class="izquierda">Has obtenido <span class="puntuacionFinal">[${puntuacion}]</span> puntos en modo <span class="puntuacionFinal">[${dificultad}]</span>.</span>
@@ -603,26 +647,26 @@ function volverJugar() {
 	location.reload();
 }
 
-function fullScreenMode() {
-	// Si no esta en pantalla completa, se pondrá al pulsar el botón
-	if (document.fullscreenElement == null) {
-		if (
-			document.fullScreenElement !== null || // método alternativo
-			(!document.mozFullScreen && !document.webkitIsFullScreen)
-		) {
-			// métodos actuales
-			if (document.documentElement.requestFullScreen) {
-				document.documentElement.requestFullScreen();
-			} else if (document.documentElement.mozRequestFullScreen) {
-				document.documentElement.mozRequestFullScreen();
-			} else if (document.documentElement.webkitRequestFullScreen) {
-				document.documentElement.webkitRequestFullScreen(
-					Element.ALLOW_KEYBOARD_INPUT,
-				);
-			}
+// Funciones para poner y quitar pantalla completa automáticamente
+function fullScreenOn() {
+	if (
+		document.fullScreenElement !== null || // método alternativo
+		(!document.mozFullScreen && !document.webkitIsFullScreen)
+	) {
+		// métodos actuales
+		if (document.documentElement.requestFullScreen) {
+			document.documentElement.requestFullScreen();
+		} else if (document.documentElement.mozRequestFullScreen) {
+			document.documentElement.mozRequestFullScreen();
+		} else if (document.documentElement.webkitRequestFullScreen) {
+			document.documentElement.webkitRequestFullScreen(
+				Element.ALLOW_KEYBOARD_INPUT,
+			);
 		}
 	}
-	// Si esta en pantalla completa, se quitara al pulsar el botón
+}
+
+function fullScreenOff() {
 	if (document.fullscreenElement != null) {
 		if (document.cancelFullScreen) {
 			document.cancelFullScreen();
