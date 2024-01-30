@@ -1,4 +1,4 @@
-## v0.8.2
+## v0.8.2 (Corrección de errores)
  - Corregido errores sin importancia
  - Corregido error que permitía pausar después de haber terminado la partida
  - El contador para la duración de la partida ahora empieza a contar cuando empieza la partida, y no al cargar
