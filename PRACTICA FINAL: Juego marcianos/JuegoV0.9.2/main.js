@@ -18,11 +18,6 @@
     0.9.2
     ---------------------------------------
     Notas de la Versión:
-        --- 0.9.1 ---
-    - Las naves ahora tienen un movimiento inicial aleatorio
-    - Cambiado velocidad de las naves enemigas en Google Chrome
-    - Otros cambios leves
-        --- 0.9.2 ---
     - Algunas optimizaciones
     - Corregido error que no bloqueaba el botón de empezar partida si después de escribir un nombre, este se borraba
     - Eliminado preventDefault() de las teclas ENTER y F11
