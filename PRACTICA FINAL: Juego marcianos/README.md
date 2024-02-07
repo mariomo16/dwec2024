@@ -1,10 +1,5 @@
-## v0.9.2
- - Corregido movimiento de las naves enemigas para que sean aleatorias (Al fin!)
- - Cambiado levemente la velocidad de las naves enemigas en Google Chrome
- - Corregido error que no bloqueaba el botón de empezar partida si después de escribir un nombre, este se borraba
- - Eliminado preventDefault() de las teclas ENTER y F11
-   - Al haber desactivado el autofocus de la ventana modal, ya no se actualiza la página al pulsar ENTER
-   - preventDefault() en F11 parece no hacer ningún cambio, ya que se puede seguir activando/desactivando la pantalla completa
- - Otros cambios leves
+## v1.0.0
+ - Ahora si el usuario decide guardar su puntuación, al ganar la partida se enviaran sus datos para guardarlos
+ - Al pulsar TAB, la partida se pausara y se mostrara una tabla con las 10 mejores puntuaciones en caso de que haya
 
 # Otras versiones en 'old'
