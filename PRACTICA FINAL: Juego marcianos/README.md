@@ -1,5 +1,5 @@
-## v1.0.0
- - Ahora si el usuario decide guardar su puntuación, al ganar la partida se enviaran sus datos para guardarlos
- - Al pulsar TAB, la partida se pausara y se mostrara una tabla con las 10 mejores puntuaciones en caso de que haya
+## v1.0.1
+ - Ahora la puntuación se guardara en localStorage ya que la URL de fetch no funcionaba.
+ - Corregidor error que hacia que al matar las naves en pantalla contara como victoria aun quedando mas naves por generar.
 
 # Otras versiones en 'old'
